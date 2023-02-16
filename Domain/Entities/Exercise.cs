@@ -15,7 +15,7 @@ public class Exercise : AuditableEntity
     public UtilityTypes? UtilityType { get; set; }
     public MechanicTypes MechanicType { get; set; }
     public MovementTypes MovementType { get; set; }
-    public Muscle MainMuscleWorked { get; set; }
+    public Muscle MainMuscleWorked { get; set; } = default!;
     public IList<Muscle>? SynergistsMusclesWorked { get; private set; } = new List<Muscle>();
     public Equipment? MainEquipmentUsed { get; set; }
     public string? Comments { get; set; }

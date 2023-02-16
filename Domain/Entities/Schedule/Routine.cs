@@ -8,7 +8,9 @@ namespace Domain.Entities.Schedule;
 public class Routine : AuditableEntity
 {
     public Guid Id { get; set; }
-    public Guid UserId { get; set; }
+    
+    //TODO: Add UserId
+    //public Guid UserId { get; set; }
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }
     public IList<Workout> Workouts { get; private set; } = new List<Workout>();
