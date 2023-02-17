@@ -1,7 +1,7 @@
 # GymXpto
 
-##Goals
+## Goals
 
-##Achievements
+## Achievements
 
-##To do
+## To do
