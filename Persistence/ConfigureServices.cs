@@ -14,6 +14,7 @@ public static class ConfigureServices
             options.UseSqlServer(configuration.GetConnectionString("GymXptoConnectionString")));
 
         services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+        services.AddScoped<IRoutineRepository, RoutineRepository>();
 
         return services;
     }
