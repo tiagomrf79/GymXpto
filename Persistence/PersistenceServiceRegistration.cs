@@ -6,7 +6,7 @@ using Persistence.Repositories;
 
 namespace Persistence;
 
-public static class ConfigureServices
+public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
