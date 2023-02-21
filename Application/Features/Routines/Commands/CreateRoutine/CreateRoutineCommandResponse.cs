@@ -6,7 +6,7 @@ public class CreateRoutineCommandResponse : BaseResponse
 {
 	public CreateRoutineDto Routine { get; set; } = default!;
 
-	public CreateRoutineCommandResponse() : base()
+    public CreateRoutineCommandResponse() : base()
 	{
 	}
 }

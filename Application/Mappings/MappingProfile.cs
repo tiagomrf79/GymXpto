@@ -11,6 +11,7 @@ public class MappingProfile : Profile
 	public MappingProfile()
 	{
 		CreateMap<Routine, CreateRoutineDto>();
+		CreateMap<Routine, UpdateRoutineDto>();
         CreateMap<Routine, UpdateRoutineCommand>().ReverseMap();
     }
 }

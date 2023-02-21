@@ -5,15 +5,13 @@ using MediatR;
 
 namespace Application.Features.Routines.Commands.DeleteRoutine;
 
-internal class DeleteRoutineCommandHandler : IRequestHandler<DeleteRoutineCommand, DeleteRoutineCommandResponse>
+public class DeleteRoutineCommandHandler : IRequestHandler<DeleteRoutineCommand, DeleteRoutineCommandResponse>
 {
     private readonly IAsyncRepository<Routine> _routineRepository;
-    private readonly IMapper _mapper;
 
-    public DeleteRoutineCommandHandler(IAsyncRepository<Routine> routineRepository, IMapper mapper)
+    public DeleteRoutineCommandHandler(IAsyncRepository<Routine> routineRepository)
     {
         _routineRepository = routineRepository;
-        _mapper = mapper;
     }
 
     public async Task<DeleteRoutineCommandResponse> Handle(DeleteRoutineCommand request, CancellationToken cancellationToken)
