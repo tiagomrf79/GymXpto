@@ -109,7 +109,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
     [Fact]
     public async void DeleteAsync_ValidRoutine_RoutineRemovedFromDatabase()
     {
-        Guid idToDelete = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+        Guid idToDelete = new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5");
         Routine routineToDelete = (await _routineRepository.GetByIdAsync(idToDelete))!;
         int recordCountBefore = (await _routineRepository.ListAllAsync()).Count;
 

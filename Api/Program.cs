@@ -9,3 +9,5 @@ var app = builder
 await app.ResetDatabaseAsync(); //for initial development only
 
 app.Run();
+
+public partial class Program { }

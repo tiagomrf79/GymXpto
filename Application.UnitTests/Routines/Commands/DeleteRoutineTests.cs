@@ -1,7 +1,6 @@
 ﻿using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Interfaces.Persistence;
 using Application.UnitTests.Mocks;
-using AutoMapper;
 using Domain.Entities.Schedule;
 using Moq;
 using Shouldly;
@@ -20,7 +19,7 @@ public class DeleteRoutineTests
     [Fact]
     public async Task Handle_ValidRoutine_RemovedFromRoutinesRepo()
     {
-        Guid idToDelete = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+        Guid idToDelete = new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5");
         var handler = new DeleteRoutineCommandHandler(_mockRoutineRepository.Object);
         int recordCountBefore = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
 
