@@ -26,9 +26,6 @@ public class RoutineController : ControllerBase
     }
 
     [HttpPut(Name = "UpdateRoutine")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
     public async Task<ActionResult<UpdateRoutineCommandResponse>> Update([FromBody] UpdateRoutineCommand updateRoutineCommand)
     {
         var response = await _mediator.Send(updateRoutineCommand);
@@ -36,9 +33,6 @@ public class RoutineController : ControllerBase
     }
 
     [HttpDelete("{id}", Name = "DeleteRoutine")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
     public async Task<ActionResult<DeleteRoutineCommandResponse>> Delete(Guid id)
     {
         var deleteRoutineCommand = new DeleteRoutineCommand() { RoutineId = id };
