@@ -6,6 +6,9 @@ Learn practices and concepts, by implementing:
 - ASP.NET Core Web API
 - Common frameworks, like Moq or Entity Framework
 - Blazor Server App
+- Docker
+- Kubernetes
+- Azure cloud
 
 Eventually use the API and core developed to introduce new projects like .NET Maui, React and Angular.
 
