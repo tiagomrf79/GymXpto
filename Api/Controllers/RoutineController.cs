@@ -37,6 +37,6 @@ public class RoutineController : ControllerBase
     {
         var deleteRoutineCommand = new DeleteRoutineCommand() { RoutineId = id };
         var response = await _mediator.Send(deleteRoutineCommand);
-        return response;
+        return Ok(response);
     }
 }
