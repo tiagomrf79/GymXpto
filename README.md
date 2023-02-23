@@ -13,6 +13,8 @@ Learn practices and concepts, by implementing:
 Eventually use the API and core developed to introduce new projects like .NET Maui, React and Angular.
 
 ## Achievements
+- Implemented sucessfully CQRS (Command Query Responsability Segregation), which was a new concept for me.
+- The API controllers are clean and simple, and at the same time are returning all that I need.
 
 ## To do
 - Complete tests by following guidelines from article, book or course.
@@ -23,6 +25,7 @@ Eventually use the API and core developed to introduce new projects like .NET Ma
 - Expand the current work done in Application, Api and Tests to the remaining entities
   - Read operation in Routine
   - CRUD operations in remaining entities
+- Implement identity functionality...
 - Develop the Blazor UI...
 - Use Docker...
 - Use Kubernetes...
