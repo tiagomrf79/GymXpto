@@ -5,7 +5,6 @@ using Application.Features.Routines.Commands.UpdateRoutine;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Text;
-using System.Text.Json;
 
 namespace Api.IntegrationTests.Controllers;
 
@@ -75,7 +74,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            Id = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
             Title = "Updated routine title",
             Description = "Updated routine description"
         };
@@ -94,7 +93,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
         result.ShouldBeOfType<UpdateRoutineCommandResponse>();
         result.Success.ShouldBeTrue();
         result.Routine.ShouldNotBeNull();
-        result.Routine.Id.ShouldBe(updateRoutineCommand.Id);
+        result.Routine.RoutineId.ShouldBe(updateRoutineCommand.RoutineId);
         result.Routine.Title.ShouldBe(updateRoutineCommand.Title);
         result.Routine.Description.ShouldBe(updateRoutineCommand.Description);
     }
@@ -104,7 +103,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            Id = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
             Title = String.Empty,
             Description = "Updated routine description"
         };
@@ -130,7 +129,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            Id = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb"),
+            RoutineId = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb"),
             Title = "Updated routine title",
             Description = "Updated routine description"
         };

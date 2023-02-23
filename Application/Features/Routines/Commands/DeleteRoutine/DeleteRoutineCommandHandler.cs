@@ -17,9 +17,9 @@ public class DeleteRoutineCommandHandler : IRequestHandler<DeleteRoutineCommand,
     public async Task<DeleteRoutineCommandResponse> Handle(DeleteRoutineCommand request, CancellationToken cancellationToken)
     {
         var deleteRoutineCommandResponse = new DeleteRoutineCommandResponse();
-        var responseToDelete = await _routineRepository.GetByIdAsync(request.RoutineId);
+        var routineToDelete = await _routineRepository.GetByIdAsync(request.RoutineId);
 
-        if (responseToDelete == null)
+        if (routineToDelete == null)
         {
             deleteRoutineCommandResponse.Success = false;
             deleteRoutineCommandResponse.Message = "Routine not found.";
@@ -27,7 +27,7 @@ public class DeleteRoutineCommandHandler : IRequestHandler<DeleteRoutineCommand,
 
         if (deleteRoutineCommandResponse.Success)
         {
-            await _routineRepository.DeleteAsync(responseToDelete!);
+            await _routineRepository.DeleteAsync(routineToDelete!);
         }
 
         return deleteRoutineCommandResponse;

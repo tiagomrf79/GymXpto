@@ -44,7 +44,7 @@ public class CreateRoutineCommandHandler : IRequestHandler<CreateRoutineCommand,
             };
 
             routine = await _routineRepository.AddAsync(routine);
-            createRoutineCommandResponse.Routine = _mapper.Map<CreateRoutineDto>(routine); ;
+            createRoutineCommandResponse.Routine = _mapper.Map<CreateRoutineDto>(routine);
         }
 
         return createRoutineCommandResponse;

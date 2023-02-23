@@ -7,7 +7,7 @@ namespace Domain.Entities.Schedule;
 /// </summary>
 public class Routine : AuditableEntity
 {
-    public Guid Id { get; set; }
+    public Guid RoutineId { get; set; }
 
     //TODO: Add UserId
     //public Guid UserId { get; set; }

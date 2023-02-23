@@ -23,7 +23,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
         var result = await _routineRepository.GetByIdAsync(idToLookup);
 
         result.ShouldNotBeNull();
-        result.Id.ShouldBe(idToLookup);
+        result.RoutineId.ShouldBe(idToLookup);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
     {
         var routineToAdd = new Routine()
         {
-            Id = Guid.NewGuid(),
+            RoutineId = Guid.NewGuid(),
             Title = "New routine title"
         };
         int recordCountBefore = (await _routineRepository.ListAllAsync()).Count;
@@ -73,7 +73,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
     {
         var routineToAdd = new Routine()
         {
-            Id = Guid.NewGuid(),
+            RoutineId = Guid.NewGuid(),
             Title = "New routine title",
             Description = "New routine description"
         };
@@ -81,7 +81,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
         var routineAdded = await _routineRepository.AddAsync(routineToAdd);
 
         routineAdded.ShouldNotBeNull();
-        routineAdded.Id.ShouldBe(routineToAdd.Id);
+        routineAdded.RoutineId.ShouldBe(routineToAdd.RoutineId);
         routineAdded.Title.ShouldBe(routineToAdd.Title);
         routineAdded.Description.ShouldBe(routineToAdd.Description);
     }
@@ -98,10 +98,10 @@ public class RoutineRepositoryTests : IAsyncLifetime
         await _routineRepository.UpdateAsync(routineToUpdate);
 
         int recordCountAfter = (await _routineRepository.ListAllAsync()).Count;
-        var updatedRoutine = await _routineRepository.GetByIdAsync(routineToUpdate.Id);
+        var updatedRoutine = await _routineRepository.GetByIdAsync(routineToUpdate.RoutineId);
         recordCountAfter.ShouldBe(recordCountBefore);
         updatedRoutine.ShouldNotBeNull();
-        updatedRoutine.Id.ShouldBe(routineToUpdate.Id);
+        updatedRoutine.RoutineId.ShouldBe(routineToUpdate.RoutineId);
         updatedRoutine.Title.ShouldBe(routineToUpdate.Title);
         updatedRoutine.Description.ShouldBe(routineToUpdate.Description);
     }

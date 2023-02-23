@@ -28,7 +28,7 @@ public class GymXptoDbContextTests : IAsyncLifetime
     {
         var routineToCreate = new Routine()
         {
-            Id = Guid.NewGuid(),
+            RoutineId = Guid.NewGuid(),
             Title = "New routine title"
         };
 

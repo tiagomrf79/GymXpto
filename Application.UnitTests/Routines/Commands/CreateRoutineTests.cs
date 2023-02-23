@@ -3,7 +3,6 @@ using Application.Interfaces.Persistence;
 using Application.Mappings;
 using Application.UnitTests.Mocks;
 using AutoMapper;
-using Domain.Entities.Schedule;
 using Moq;
 using Shouldly;
 
@@ -12,7 +11,7 @@ namespace Application.UnitTests.Routines.Commands;
 public class CreateRoutineTests
 {
 	private readonly IMapper _mapper;
-	private readonly Mock<IAsyncRepository<Routine>> _mockRoutineRepository;
+	private readonly Mock<IRoutineRepository> _mockRoutineRepository;
 
 	public CreateRoutineTests()
 	{

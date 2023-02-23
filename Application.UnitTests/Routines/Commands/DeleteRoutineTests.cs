@@ -1,7 +1,6 @@
 ﻿using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Interfaces.Persistence;
 using Application.UnitTests.Mocks;
-using Domain.Entities.Schedule;
 using Moq;
 using Shouldly;
 
@@ -9,7 +8,7 @@ namespace Application.UnitTests.Routines.Commands;
 
 public class DeleteRoutineTests
 {
-    private readonly Mock<IAsyncRepository<Routine>> _mockRoutineRepository;
+    private readonly Mock<IRoutineRepository> _mockRoutineRepository;
 
     public DeleteRoutineTests()
     {
@@ -33,11 +32,11 @@ public class DeleteRoutineTests
     [Fact]
     public async Task Handle_NotFoundRoutine_ErrorMessageReturned()
     {
-        Guid id = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
+        Guid idToDelete = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
         var handler = new DeleteRoutineCommandHandler(_mockRoutineRepository.Object);
         int recordCountBefore = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
 
-        var result = await handler.Handle(new DeleteRoutineCommand() { RoutineId = id }, CancellationToken.None);
+        var result = await handler.Handle(new DeleteRoutineCommand() { RoutineId = idToDelete }, CancellationToken.None);
 
         int recordCountAfter = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
         recordCountAfter.ShouldBe(recordCountBefore);

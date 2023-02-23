@@ -20,7 +20,7 @@ public class UpdateRoutineCommandHandler : IRequestHandler<UpdateRoutineCommand,
     public async Task<UpdateRoutineCommandResponse> Handle(UpdateRoutineCommand request, CancellationToken cancellationToken)
     {
         var updateRoutineCommandResponse = new UpdateRoutineCommandResponse();
-        var routineToUpdate = await _routineRepository.GetByIdAsync(request.Id);
+        var routineToUpdate = await _routineRepository.GetByIdAsync(request.RoutineId);
 
         if (routineToUpdate == null)
         {
