@@ -22,8 +22,16 @@ Eventually use the API and core developed to introduce new projects like .NET Ma
   - Figure out all the things that should be tested in each layer of a clean architecture application
   - Learn more about test fixtures in XUnit
   - Confirm that I'm using the mock and in memory dbcontext the right way and at the right places
+  - Figure out a way to get all testing data from the same place, whether for in memory context or repository mock (JSON file?)
 - Expand the current work done in Application, Api and Tests to the remaining entities
   - Read operation in Routine
+    - FIX: Workouts in Routine is using IList in Routine entity and ICollection in RoutineWorkoutsListVm
+    - Implement routine repository method to retrieve routines with workouts, in Persistence project
+    - Implement mock routine repository method to retrieve routines with workouts, in Application.UnitTests project
+    - Add dummy workout data for testing purposes
+    - Implement persistence integration tests for the 3 queries
+    - Implement API controllers for the 3 queries
+    - Implement API controllers tests for the 3 queries
   - CRUD operations in remaining entities
 - Implement identity functionality...
 - Develop the Blazor UI...
