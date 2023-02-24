@@ -25,8 +25,6 @@ Eventually use the API and core developed to introduce new projects like .NET Ma
   - Figure out a way to get all testing data from the same place, whether for in memory context or repository mock (JSON file?)
 - Expand the current work done in Application, Api and Tests to the remaining entities
   - Read operation in Routine
-    - FIX: Workouts in Routine is using IList in Routine entity and ICollection in RoutineWorkoutsListVm
-    - Implement routine repository method to retrieve routines with workouts, in Persistence project
     - Implement mock routine repository method to retrieve routines with workouts, in Application.UnitTests project
     - Add dummy workout data for testing purposes
     - Implement persistence integration tests for the 3 queries
