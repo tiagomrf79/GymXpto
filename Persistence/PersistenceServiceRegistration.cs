@@ -13,7 +13,10 @@ public static class PersistenceServiceRegistration
         services.AddDbContext<GymXptoDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("GymXptoConnectionString")));
 
+        // generic interfaces can't be added using .AddScoped(IAsyncRepository<T>, BaseRepository<T>)
+        // instead they can be added using the typeof keyword
         services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+        
         services.AddScoped<IRoutineRepository, RoutineRepository>();
 
         return services;
