@@ -27,7 +27,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{C992DE46-F33B-4DED-BF5C-B9170E998B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.IntegrationTests", "Api.IntegrationTests\Api.IntegrationTests.csproj", "{994D0027-9A4A-4FE5-A76D-6DD046991304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.IntegrationTests", "Api.IntegrationTests\Api.IntegrationTests.csproj", "{994D0027-9A4A-4FE5-A76D-6DD046991304}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD634359-3A25-46D5-A757-203DA4B48345}"
+	ProjectSection(SolutionItems) = preProject
+		ideias.txt = ideias.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

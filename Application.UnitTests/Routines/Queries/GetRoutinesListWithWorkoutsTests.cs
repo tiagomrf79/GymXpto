@@ -34,6 +34,6 @@ public class GetRoutinesListWithWorkoutsTests
 
         result.ShouldBeOfType<List<RoutineWorkoutsListVm>>();
         result.Count.ShouldBe(routineCount);
-        result.FirstOrDefault().Workouts.ShouldNotBeNull();
+        result.ForEach(r => r.Workouts.ShouldNotBeNull());
     }
 }

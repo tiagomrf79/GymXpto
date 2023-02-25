@@ -4,5 +4,5 @@ namespace Application.Interfaces.Persistence;
 
 public interface IRoutineRepository : IAsyncRepository<Routine>
 {
-    Task<Routine> GetRoutineWithWorkouts();
+    Task<List<Routine>> GetRoutineWithWorkouts();
 }

@@ -2,6 +2,9 @@
 using Application.Features.Routines.Commands.CreateRoutine;
 using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Features.Routines.Commands.UpdateRoutine;
+using Application.Features.Routines.Queries.GetRoutineDetail;
+using Application.Features.Routines.Queries.GetRoutinesList;
+using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Text;
@@ -187,5 +190,80 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
         result.ShouldBeOfType<DeleteRoutineCommandResponse>();
         result.Success.ShouldBeFalse();
         result.Message.ShouldNotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetRoutineById_ValidRoutine_ReturnsSuccessResult()
+    {
+        var idToReturn = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+
+        var client = _factory.GetAnonymousClient();
+
+        var response = await client.GetAsync($"api/routine/{idToReturn}");
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<GetRoutineDetailQueryResponse>(responseString);
+
+        result.ShouldBeOfType<GetRoutineDetailQueryResponse>();
+        result.Success.ShouldBeTrue();
+        result.Routine.ShouldNotBeNull();
+        result.Routine.RoutineId.ShouldBe(idToReturn);
+    }
+
+    [Fact]
+    public async Task GetRoutineById_NotFoundRoutine_ReturnsFailureResult()
+    {
+        var idToReturn = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
+
+        var client = _factory.GetAnonymousClient();
+
+        var response = await client.GetAsync($"api/routine/{idToReturn}");
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<GetRoutineDetailQueryResponse>(responseString);
+
+        result.ShouldBeOfType<GetRoutineDetailQueryResponse>();
+        result.Success.ShouldBeFalse();
+        result.Message.ShouldNotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAllRoutines_ReturnsSuccessResult()
+    {
+        var client = _factory.GetAnonymousClient();
+
+        var response = await client.GetAsync("api/routine/all");
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<List<RoutineListVm>>(responseString);
+
+        result.ShouldBeOfType<List<RoutineListVm>>();
+        result.ShouldNotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAllRoutinesWithWorkouts_ReturnsSuccessResult()
+    {
+        var client = _factory.GetAnonymousClient();
+
+        var response = await client.GetAsync("api/routine/allwithworkouts");
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<List<RoutineWorkoutsListVm>>(responseString);
+
+        result.ShouldBeOfType<List<RoutineWorkoutsListVm>>();
+        result.ShouldNotBeEmpty();
     }
 }

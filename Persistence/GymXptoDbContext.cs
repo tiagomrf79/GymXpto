@@ -7,6 +7,7 @@ namespace Persistence;
 public class GymXptoDbContext : DbContext
 {
     public DbSet<Routine> Routines { get; set; }
+    public DbSet<Workout> Workouts { get; set; }
     
     public GymXptoDbContext(DbContextOptions<GymXptoDbContext> options) : base(options)
 	{
@@ -34,6 +35,19 @@ public class GymXptoDbContext : DbContext
             RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
             Title = "A minha rotina",
             Description = "treino construído com base em exemplos retirados da internet"
+        });
+
+        modelBuilder.Entity<Workout>().HasData(new Workout
+        {
+            WorkoutId = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"),
+            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            Title = "Lower body"
+        });
+        modelBuilder.Entity<Workout>().HasData(new Workout
+        {
+            WorkoutId = new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"),
+            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            Title = "Upper body"
         });
     }
 

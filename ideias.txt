@@ -1,0 +1,8 @@
+Funcionalidade que permite transformar uma página web ou parte dela num workout ou rotina.
+P.ex. copia-se uma tabela com uma rotina de uma página web para uma caixa de texto
+e a aplicação tenta transformar esse conteúdo numa rotina compatível com os exercícios e estrutura existente.
+Pode funcionar para websites que tenham a forma de apresentação das rotinas mais ou menos padronizada.
+
+Funcionalidade que permite mover ou copiar um workout de uma rotina para outra.
+Ou pode ser feito na própria página do workout ou pode ser feito na página que adiciona workouts a uma rotina que se está a criar/editar.
+

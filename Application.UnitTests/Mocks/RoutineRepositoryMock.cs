@@ -20,13 +20,28 @@ public class RoutineRepositoryMock
             {
                 RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
                 Title = "Rotina do BodyStation",
-                Description = "um treino de lower body e um treino de upper body"
+                Description = "um treino de lower body e um treino de upper body",
             },
             new Routine
             {
                 RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
                 Title = "A minha rotina",
-                Description = "treino construído com base em exemplos retirados da internet"
+                Description = "treino construído com base em exemplos retirados da internet",
+                Workouts =
+                {
+                    new Workout
+                    {
+                        WorkoutId = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"),
+                        RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+                        Title = "Lower body",
+                    },
+                    new Workout
+                    {
+                        WorkoutId =  new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"),
+                        RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+                        Title = "Upper body"
+                    }
+                }
             }
         };
 
@@ -66,6 +81,9 @@ public class RoutineRepositoryMock
                 routines.Remove(routine);
                 return Task.CompletedTask;
             });
+
+        //mockRoutineRepository.Setup(repo => repo.GetRoutineWithWorkouts()).ReturnsAsync(routines.AsQueryable().ToList());
+        mockRoutineRepository.Setup(repo => repo.GetRoutineWithWorkouts()).ReturnsAsync(routines);
 
         return mockRoutineRepository;
     }

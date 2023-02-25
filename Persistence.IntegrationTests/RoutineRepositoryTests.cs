@@ -121,7 +121,15 @@ public class RoutineRepositoryTests : IAsyncLifetime
         recordCountAfter.ShouldBe(recordCountBefore - 1);
     }
 
-    //GetRoutineWithWorkouts_RoutineHasWorkouts_RoutineWithWorkoutsReturned
+    [Fact]
+    public async void GetRoutineWithWorkouts_ValidRoutine_RoutineWithWorkoutsReturned()
+    {
+        var allRoutines = await _routineRepository.GetRoutineWithWorkouts();
+
+        allRoutines.ShouldNotBeNull();
+        allRoutines.Count.ShouldBeGreaterThan(0);
+        allRoutines.ForEach(r => r.Workouts.ShouldNotBeNull());
+    }
 
     public Task DisposeAsync() => Task.CompletedTask;
 

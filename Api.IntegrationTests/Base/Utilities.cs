@@ -26,6 +26,19 @@ public class Utilities
             Description = "treino construído com base em exemplos retirados da internet"
         });
 
+        context.Workouts.Add(new Workout
+        {
+            WorkoutId = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"),
+            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            Title = "Lower body"
+        });
+        context.Workouts.Add(new Workout
+        {
+            WorkoutId = new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"),
+            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            Title = "Upper body"
+        });
+
         context.SaveChanges();
     }
 }
