@@ -24,10 +24,7 @@ Eventually use the API and core developed to introduce new projects like .NET Ma
   - Confirm that I'm using the mock and in memory dbcontext the right way and at the right places
   - Figure out a way to get all testing data from the same place, whether for in memory context or repository mock (JSON file?)
 - Expand the current work done in Application, Api and Tests to the remaining entities
-  - Read operation in Routine
-    - Implement API controllers for the 3 queries
-    - Implement API controllers tests for the 3 queries
-  - Implement GetPagedResponseAsync in Persistence.Tests
+  - Implement GetPagedResponseAsync in Api and Persistence.Tests
   - CRUD operations in remaining entities
 - Implement identity functionality...
 - Implement logging and exception handling...
