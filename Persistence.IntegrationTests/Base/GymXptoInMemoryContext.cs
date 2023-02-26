@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.IntegrationTests.TestData;
+namespace Persistence.IntegrationTests.Base;
 
 public class GymXptoInMemoryContext
 {

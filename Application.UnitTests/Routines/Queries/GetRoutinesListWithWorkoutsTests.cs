@@ -1,26 +1,22 @@
 ﻿using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 using Application.Interfaces.Persistence;
-using Application.Mappings;
-using Application.UnitTests.Mocks;
+using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
 
 namespace Application.UnitTests.Routines.Queries;
 
+[Collection(nameof(DataCollection))]
 public class GetRoutinesListWithWorkoutsTests
 {
     private readonly Mock<IRoutineRepository> _mockRoutineRepository;
     private readonly IMapper _mapper;
 
-    public GetRoutinesListWithWorkoutsTests()
+    public GetRoutinesListWithWorkoutsTests(TestFixture testDataFixture)
     {
-        _mockRoutineRepository = RoutineRepositoryMock.GetRoutineRepository();
-        var configurationProvider = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<MappingProfile>();
-        });
-        _mapper = configurationProvider.CreateMapper();
+        _mockRoutineRepository = testDataFixture.MockRoutineRepository;
+        _mapper = testDataFixture.Mapper;
     }
 
     [Fact]

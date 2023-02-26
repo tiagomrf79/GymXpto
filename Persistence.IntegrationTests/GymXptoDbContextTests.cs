@@ -8,7 +8,7 @@ using Domain.Entities.Schedule;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Persistence;
-using Persistence.IntegrationTests.TestData;
+using Persistence.IntegrationTests.Base;
 using Shouldly;
 using System.CodeDom;
 

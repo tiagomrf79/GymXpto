@@ -1,34 +1,32 @@
 ﻿using Application.Features.Routines.Queries.GetRoutineDetail;
 using Application.Interfaces.Persistence;
-using Application.Mappings;
-using Application.UnitTests.Mocks;
+using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
 
 namespace Application.UnitTests.Routines.Queries;
 
+[Collection(nameof(DataCollection))]
 public class GetRoutineDetailTests
 {
     private readonly Mock<IRoutineRepository> _mockRoutineRepository;
     private readonly IMapper _mapper;
 
-    public GetRoutineDetailTests()
+    public GetRoutineDetailTests(TestFixture testDataFixture)
     {
-        _mockRoutineRepository = RoutineRepositoryMock.GetRoutineRepository();
-
-        var configurationProvider = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<MappingProfile>();
-        });
-        _mapper = configurationProvider.CreateMapper();
+        _mockRoutineRepository = testDataFixture.MockRoutineRepository;
+        _mapper = testDataFixture.Mapper;
     }
 
     [Fact]
     public async Task Handle_ValidRoutine_RoutineReturnedFromRepo()
     {
         var handler = new GetRoutineDetailQueryHandler(_mockRoutineRepository.Object, _mapper);
-        var command = new GetRoutineDetailQuery() { RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98") };
+        var command = new GetRoutineDetailQuery()
+        {
+            RoutineId = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6") 
+        };
 
         var result = await handler.Handle(command, CancellationToken.None);
 

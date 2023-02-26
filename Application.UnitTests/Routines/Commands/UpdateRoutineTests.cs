@@ -1,27 +1,22 @@
 ﻿using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Interfaces.Persistence;
-using Application.Mappings;
-using Application.UnitTests.Mocks;
+using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
 
 namespace Application.UnitTests.Routines.Commands;
 
+[Collection(nameof(DataCollection))]
 public class UpdateRoutineTests
 {
     private readonly IMapper _mapper;
     private readonly Mock<IRoutineRepository> _mockRoutineRepository;
 
-    public UpdateRoutineTests()
+    public UpdateRoutineTests(TestFixture testDataFixture)
     {
-        _mockRoutineRepository = RoutineRepositoryMock.GetRoutineRepository();
-
-        var configurationProvider = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<MappingProfile>();
-        });
-        _mapper = configurationProvider.CreateMapper();
+        _mockRoutineRepository = testDataFixture.MockRoutineRepository;
+        _mapper = testDataFixture.Mapper;
     }
 
     [Fact]
@@ -30,7 +25,7 @@ public class UpdateRoutineTests
         var handler = new UpdateRoutineCommandHandler(_mockRoutineRepository.Object, _mapper);
         var command = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
             Title = "Updated routine title",
             Description = "Updated routine description"
         };
@@ -52,7 +47,7 @@ public class UpdateRoutineTests
         var handler = new UpdateRoutineCommandHandler(_mockRoutineRepository.Object, _mapper);
         var command = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
             Title = string.Empty,
         };
 

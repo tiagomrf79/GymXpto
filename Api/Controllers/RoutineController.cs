@@ -4,7 +4,6 @@ using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Features.Routines.Queries.GetRoutineDetail;
 using Application.Features.Routines.Queries.GetRoutinesList;
 using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
-using Azure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
 ﻿using Persistence.Repositories;
 
-namespace Persistence.IntegrationTests.TestData;
+namespace Persistence.IntegrationTests.Base;
 
 public class RoutineRepositoryFromMemory
 {

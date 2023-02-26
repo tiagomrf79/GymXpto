@@ -12,7 +12,6 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     {
         builder.ConfigureServices(services =>
         {
-
             services.AddDbContext<GymXptoDbContext>(options =>
             {
                 options.UseInMemoryDatabase("GymXptoDbContextInMemoryTest");

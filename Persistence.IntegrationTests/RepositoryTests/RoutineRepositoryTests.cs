@@ -1,9 +1,9 @@
 ﻿using Domain.Entities.Schedule;
-using Persistence.IntegrationTests.TestData;
+using Persistence.IntegrationTests.Base;
 using Persistence.Repositories;
 using Shouldly;
 
-namespace Persistence.IntegrationTests;
+namespace Persistence.IntegrationTests.RepositoryTests;
 
 public class RoutineRepositoryTests : IAsyncLifetime
 {
@@ -14,11 +14,11 @@ public class RoutineRepositoryTests : IAsyncLifetime
         _routineRepository = await RoutineRepositoryFromMemory.GetRoutineRepository();
     }
 
-    
+
     [Fact]
     public async void GetByIdAsync_ValidRoutine_RoutineReturned()
     {
-        var idToLookup = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+        var idToLookup = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6");
 
         var result = await _routineRepository.GetByIdAsync(idToLookup);
 
@@ -64,7 +64,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
 
         var allRecordsAfter = await _routineRepository.ListAllAsync();
         int recordCountAfter = allRecordsAfter.Count;
-        allRecordsAfter.ShouldContain<Routine>(routineToAdd);
+        allRecordsAfter.ShouldContain(routineToAdd);
         recordCountAfter.ShouldBe(recordCountBefore + 1);
     }
 
@@ -89,7 +89,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
     [Fact]
     public async void UpdateAsync_ValidRoutine_RoutineUpdatedInDatabase()
     {
-        var idToUpdate = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+        var idToUpdate = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad");
         Routine routineToUpdate = (await _routineRepository.GetByIdAsync(idToUpdate))!;
         routineToUpdate.Title = "Updated routine title";
         routineToUpdate.Description = "Updated routine description";
@@ -109,7 +109,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
     [Fact]
     public async void DeleteAsync_ValidRoutine_RoutineRemovedFromDatabase()
     {
-        Guid idToDelete = new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5");
+        Guid idToDelete = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
         Routine routineToDelete = (await _routineRepository.GetByIdAsync(idToDelete))!;
         int recordCountBefore = (await _routineRepository.ListAllAsync()).Count;
 
@@ -117,7 +117,7 @@ public class RoutineRepositoryTests : IAsyncLifetime
 
         var allRecordsAfter = await _routineRepository.ListAllAsync();
         int recordCountAfter = allRecordsAfter.Count;
-        allRecordsAfter.ShouldNotContain<Routine>(routineToDelete);
+        allRecordsAfter.ShouldNotContain(routineToDelete);
         recordCountAfter.ShouldBe(recordCountBefore - 1);
     }
 

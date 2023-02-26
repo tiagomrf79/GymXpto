@@ -1,0 +1,104 @@
+[
+  {
+    "RoutineId": "7b81f3cd-9383-45a9-bfee-0baf166ec6ab", //delete UT
+    "Title": "routine A title",
+    "Description": "deleted"
+  },
+  {
+    "RoutineId": "3c4854c9-cab8-4555-9d4d-dcf107ce61ad", //update UT, update persist, update api
+    "Title": "routine B title",
+    "Description": "used for updating",
+    "Workouts": [
+      {
+        "WorkoutId": "e7b65a83-9fa1-4702-a2cd-6efc8955af83",
+        "RoutineId": "3c4854c9-cab8-4555-9d4d-dcf107ce61ad",
+        "Title": "unused"
+      }
+    ]
+  },
+  {
+    "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6", //detail UT, GetById persist, getById api, update/delete workout old id
+    "Title": "routine C title",                          //workouts of routine
+    "Description": "used for lookup",
+    "Workouts": [
+      {
+        "WorkoutId": "29f90a63-ea8b-4936-89d5-2e071b4f924d", //delete UT
+        "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6",
+        "Title": "deleted"
+      },
+      {
+        "WorkoutId": "0867e6ab-8e81-4b6a-9e6c-f2ff30cc5a7a", //update UT, persist
+        "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6",
+        "Title": "used for updating"
+      },
+      {
+        "WorkoutId": "436a8442-3439-4f11-beac-ffc4269c9950", //detail UT, GetById persist/api
+        "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6",
+        "Title": "used for lookup"
+      },
+      {
+        "WorkoutId": "f4370eb8-2a9f-42f5-8d0b-3190d3760db5", //delete persist
+        "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6",
+        "Title": "deleted"
+      },
+      {
+        "WorkoutId": "40ea0d4b-aa1f-4128-8ea3-3a63e0b01164", //delete api
+        "RoutineId": "da572ec2-0f0b-4094-bfa7-f51329df41c6",
+        "Title": "deleted"
+      }
+    ]
+  },
+  {
+    "RoutineId": "336b45ac-a39e-46d9-8c47-164240c0fd4c", //delete persist
+    "Title": "routine D title",
+    "Description": "deleted",
+    "Workouts": [
+      {
+        "WorkoutId": "90b9a1f8-d581-4e9b-9e94-e7562d3220de", //tree delete persist
+        "RoutineId": "336b45ac-a39e-46d9-8c47-164240c0fd4c",
+        "Title": "cascade deleted"
+      }
+    ]
+  },
+  {
+    "RoutineId": "5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5", //delete api
+    "Title": "routine E title",
+    "Description": "deleted",
+    "Workouts": [
+      {
+        "WorkoutId": "35cb364b-bade-4231-9dd7-c66be0097a36", //tree delete api
+        "RoutineId": "5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5",
+        "Title": "cascade deleted"
+      }
+    ]
+  },
+  {
+    "RoutineId": "baf3caf7-b1e2-4b50-ba93-b41677751d98", //create workout new routineid
+    "Title": "routine F title",
+    "Description": "used for workout create",
+    "Workouts": [
+      {
+        "WorkoutId": "95f954eb-2e5d-4a76-978b-8ef1e133c433",
+        "RoutineId": "baf3caf7-b1e2-4b50-ba93-b41677751d98",
+        "Title": "unused"
+      }
+    ]
+  },
+  {
+    "RoutineId": "d905ff6c-8bf3-4f9f-a275-598e725c6129", //update workout new routineid
+    "Title": "routine G title",
+    "Description": "used for workout update",
+    "Workouts": [
+      {
+        "WorkoutId": "92613fe3-ab8f-4b98-bfa9-96429f83c6b6",
+        "RoutineId": "d905ff6c-8bf3-4f9f-a275-598e725c6129",
+        "Title": "unused"
+      }
+    ]
+  },
+  {
+    "RoutineId": "6fe0e5da-9fee-4a57-8ae6-d59964da33ad",
+    "Title": "routine H title",
+    "Description": "unused"
+  }
+]

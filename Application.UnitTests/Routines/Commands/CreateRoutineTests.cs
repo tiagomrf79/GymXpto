@@ -1,27 +1,22 @@
 ﻿using Application.Features.Routines.Commands.CreateRoutine;
 using Application.Interfaces.Persistence;
-using Application.Mappings;
-using Application.UnitTests.Mocks;
+using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
 
 namespace Application.UnitTests.Routines.Commands;
 
+[Collection(nameof(DataCollection))]
 public class CreateRoutineTests
 {
-	private readonly IMapper _mapper;
+    private readonly IMapper _mapper;
 	private readonly Mock<IRoutineRepository> _mockRoutineRepository;
 
-	public CreateRoutineTests()
+	public CreateRoutineTests(TestFixture testDataFixture)
 	{
-		_mockRoutineRepository = RoutineRepositoryMock.GetRoutineRepository();
-
-		var configurationProvider = new MapperConfiguration(cfg =>
-		{
-			cfg.AddProfile<MappingProfile>();
-		});
-		_mapper = configurationProvider.CreateMapper();
+        _mockRoutineRepository = testDataFixture.MockRoutineRepository;
+		_mapper = testDataFixture.Mapper;
 	}
 
 	[Fact]
@@ -39,9 +34,9 @@ public class CreateRoutineTests
 
         int recordCountAfter = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
         recordCountAfter.ShouldBe(recordCountBefore + 1);
+        result.Success.ShouldBeTrue();
         result.Routine.Title.ShouldBe(command.Title);
         result.Routine.Description.ShouldBe(command.Description);
-        result.Success.ShouldBeTrue();
     }
 
     [Fact]

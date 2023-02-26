@@ -6,7 +6,7 @@ public class CreateRoutineCommandValidator : AbstractValidator<CreateRoutineComm
 {
 	public CreateRoutineCommandValidator()
 	{
-		RuleFor(v => v.Title)
+		RuleFor(r => r.Title)
 			.NotNull()
 			.NotEmpty().WithMessage("{PropertyName} is required.")
 			.MaximumLength(30).WithMessage("{PropertyName} must not exceed 30 characters.");

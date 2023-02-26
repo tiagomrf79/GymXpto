@@ -77,7 +77,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
             Title = "Updated routine title",
             Description = "Updated routine description"
         };
@@ -106,7 +106,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
+            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
             Title = String.Empty,
             Description = "Updated routine description"
         };
@@ -195,7 +195,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     [Fact]
     public async Task GetRoutineById_ValidRoutine_ReturnsSuccessResult()
     {
-        var idToReturn = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c");
+        var idToReturn = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6");
 
         var client = _factory.GetAnonymousClient();
 

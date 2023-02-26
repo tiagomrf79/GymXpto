@@ -6,7 +6,7 @@ var app = builder
     .ConfigureServices()
     .ConfigurePipeline();
 
-await app.ResetDatabaseAsync(); //for initial development only
+//await app.ResetDatabaseAsync(); //for initial development only
 
 app.Run();
 

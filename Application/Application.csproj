@@ -14,7 +14,6 @@
     <Folder Include="Features\UserExercises\Commands\DeleteUserExercise\" />
     <Folder Include="Features\UserExercises\Commands\UpdateUserExercise\" />
     <Folder Include="Features\UserExercises\Queries\" />
-    <Folder Include="Features\Workouts\" />
   </ItemGroup>
 
   <ItemGroup>

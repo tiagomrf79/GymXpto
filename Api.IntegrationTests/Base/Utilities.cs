@@ -38,6 +38,12 @@ public class Utilities
             RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
             Title = "Upper body"
         });
+        context.Workouts.Add(new Workout
+        {
+            WorkoutId = new Guid("f4370eb8-2a9f-42f5-8d0b-3190d3760db5"),
+            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            Title = "Abs day"
+        });
 
         context.SaveChanges();
     }
