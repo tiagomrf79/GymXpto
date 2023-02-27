@@ -6,7 +6,7 @@ namespace Application.UnitTests.Common;
 
 public class RoutineRepositoryFactory
 {
-    public static Mock<IRoutineRepository> GetRoutineRepository(List<Routine> routines)
+    public static Mock<IRoutineRepository> Create(List<Routine> routines)
     {
         var mockRoutineRepository = new Mock<IRoutineRepository>();
 

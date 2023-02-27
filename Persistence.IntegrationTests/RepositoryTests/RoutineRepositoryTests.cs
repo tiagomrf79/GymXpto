@@ -1,17 +1,17 @@
 ﻿using Domain.Entities.Schedule;
-using Persistence.IntegrationTests.Base;
 using Persistence.Repositories;
 using Shouldly;
 
 namespace Persistence.IntegrationTests.RepositoryTests;
 
-public class RoutineRepositoryTests : IAsyncLifetime
+[Collection(nameof(DataCollection))]
+public class RoutineRepositoryTests
 {
     private RoutineRepository _routineRepository;
 
-    public async Task InitializeAsync()
+    public RoutineRepositoryTests(TestFixture testDataFixture)
     {
-        _routineRepository = await RoutineRepositoryFromMemory.GetRoutineRepository();
+        _routineRepository = testDataFixture.RoutineRepository;
     }
 
 
@@ -130,7 +130,4 @@ public class RoutineRepositoryTests : IAsyncLifetime
         allRoutines.Count.ShouldBeGreaterThan(0);
         allRoutines.ForEach(r => r.Workouts.ShouldNotBeNull());
     }
-
-    public Task DisposeAsync() => Task.CompletedTask;
-
 }

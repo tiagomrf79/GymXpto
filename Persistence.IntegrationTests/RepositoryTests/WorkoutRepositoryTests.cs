@@ -1,17 +1,17 @@
 ﻿using Domain.Entities.Schedule;
-using Persistence.IntegrationTests.Base;
 using Persistence.Repositories;
 using Shouldly;
 
 namespace Persistence.IntegrationTests.RepositoryTests;
 
-public class WorkoutRepositoryTests : IAsyncLifetime
+[Collection(nameof(DataCollection))]
+public class WorkoutRepositoryTests
 {
     private WorkoutRepository _workoutRepository;
 
-    public async Task InitializeAsync()
+    public WorkoutRepositoryTests(TestFixture testDataFixture)
     {
-        _workoutRepository = await WorkoutRepositoryFromMemory.GetWorkoutRepository();
+        _workoutRepository = testDataFixture.WorkoutRepository;
     }
 
     [Fact]
@@ -115,6 +115,4 @@ public class WorkoutRepositoryTests : IAsyncLifetime
         allRecordsAfter.ShouldNotContain(workoutToDelete);
         recordCountAfter.ShouldBe(recordCountBefore - 1);
     }
-
-    public Task DisposeAsync() => Task.CompletedTask;
 }

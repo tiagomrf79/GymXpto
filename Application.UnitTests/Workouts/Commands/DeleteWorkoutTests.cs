@@ -1,6 +1,5 @@
 ﻿using Application.Features.Workouts.Commands.DeleteWorkout;
 using Application.Interfaces.Persistence;
-using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;

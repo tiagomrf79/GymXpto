@@ -1,6 +1,5 @@
 ﻿using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Interfaces.Persistence;
-using Application.UnitTests.Common;
 using Moq;
 using Shouldly;
 

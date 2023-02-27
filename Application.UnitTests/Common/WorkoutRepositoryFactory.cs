@@ -6,7 +6,7 @@ namespace Application.UnitTests.Common;
 
 public class WorkoutRepositoryFactory
 {
-    public static Mock<IWorkoutRepository> GetWorkoutRepository(List<Workout> workouts)
+    public static Mock<IWorkoutRepository> Create(List<Workout> workouts)
     {
         var mockRepository = new Mock<IWorkoutRepository>();
 

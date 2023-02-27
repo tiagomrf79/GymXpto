@@ -1,26 +1,16 @@
-/*
-
-Testar métodos do BaseRepository
-Testar método do RoutineRepository
-
-*/
 using Domain.Entities.Schedule;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using Persistence;
-using Persistence.IntegrationTests.Base;
 using Shouldly;
-using System.CodeDom;
 
 namespace Persistence.IntegrationTests;
 
-public class GymXptoDbContextTests : IAsyncLifetime
+[Collection(nameof(DataCollection))]
+public class GymXptoDbContextTests
 {
     private GymXptoDbContext _gymXptoDbContext;
 
-    public async Task InitializeAsync()
+    public GymXptoDbContextTests(TestFixture testDataFixture)
     {
-        _gymXptoDbContext = await GymXptoInMemoryContext.GetInMemoryContext();
+        _gymXptoDbContext = testDataFixture.GymXptoDbContext;
     }
 
     [Fact]
@@ -49,6 +39,4 @@ public class GymXptoDbContextTests : IAsyncLifetime
 
         routineToModify.LastModifiedBy.ShouldBe("tf790515");
     }
-
-    public Task DisposeAsync() => Task.CompletedTask;
 }

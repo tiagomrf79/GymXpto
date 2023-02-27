@@ -25,12 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Common\Data\2023_02_26.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\Tests.DummyData\Tests.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,5 @@
 ﻿using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
 using Application.Interfaces.Persistence;
-using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
