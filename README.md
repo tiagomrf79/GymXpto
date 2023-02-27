@@ -20,7 +20,6 @@ Eventually use the API and core developed to introduce new projects like .NET Ma
 - Complete tests by following guidelines from article, book or course.
   - Learn more about how testing should be done in each different type of test (units tests, integration tests, etc.)
   - Figure out all the things that should be tested in each layer of a clean architecture application
-  - Figure out a way to get all testing data from the same place, whether for in memory context or repository mock (JSON file?)
 - Expand the current work done in Application, Api and Tests to the remaining entities
   - Implement GetPagedResponseAsync in Api and Persistence.Tests
   - CRUD operations in remaining entities
