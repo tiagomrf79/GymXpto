@@ -4,7 +4,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Routines.Queries;
+namespace Application.UnitTests.RoutinesFeaturesTests.Queries;
 
 [Collection(nameof(DataCollection))]
 public class GetRoutineDetailTests
@@ -24,7 +24,7 @@ public class GetRoutineDetailTests
         var handler = new GetRoutineDetailQueryHandler(_mockRoutineRepository.Object, _mapper);
         var command = new GetRoutineDetailQuery()
         {
-            RoutineId = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6") 
+            RoutineId = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6")
         };
 
         var result = await handler.Handle(command, CancellationToken.None);

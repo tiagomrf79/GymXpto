@@ -4,7 +4,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Routines.Queries;
+namespace Application.UnitTests.RoutinesFeaturesTests.Queries;
 
 [Collection(nameof(DataCollection))]
 public class GetRoutineListTests

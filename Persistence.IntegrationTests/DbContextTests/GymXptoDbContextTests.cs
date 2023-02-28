@@ -1,7 +1,7 @@
 using Domain.Entities.Schedule;
 using Shouldly;
 
-namespace Persistence.IntegrationTests;
+namespace Persistence.IntegrationTests.DbContextTests;
 
 [Collection(nameof(DataCollection))]
 public class GymXptoDbContextTests
@@ -22,7 +22,7 @@ public class GymXptoDbContextTests
             Title = "New routine title"
         };
 
-       _gymXptoDbContext.Routines.Add(routineToCreate);
+        _gymXptoDbContext.Routines.Add(routineToCreate);
         await _gymXptoDbContext.SaveChangesAsync();
 
         routineToCreate.CreatedBy.ShouldBe("tf790515");

@@ -4,23 +4,23 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Routines.Commands;
+namespace Application.UnitTests.RoutinesFeaturesTests.Commands;
 
 [Collection(nameof(DataCollection))]
 public class CreateRoutineTests
 {
     private readonly IMapper _mapper;
-	private readonly Mock<IRoutineRepository> _mockRoutineRepository;
+    private readonly Mock<IRoutineRepository> _mockRoutineRepository;
 
-	public CreateRoutineTests(TestFixture testDataFixture)
-	{
+    public CreateRoutineTests(TestFixture testDataFixture)
+    {
         _mockRoutineRepository = testDataFixture.MockRoutineRepository;
-		_mapper = testDataFixture.Mapper;
-	}
+        _mapper = testDataFixture.Mapper;
+    }
 
-	[Fact]
-	public async Task Handle_ValidRoutine_AddedToRoutinesRepo()
-	{
+    [Fact]
+    public async Task Handle_ValidRoutine_AddedToRoutinesRepo()
+    {
         var handler = new CreateRoutineCommandHandler(_mockRoutineRepository.Object, _mapper);
         var command = new CreateRoutineCommand()
         {

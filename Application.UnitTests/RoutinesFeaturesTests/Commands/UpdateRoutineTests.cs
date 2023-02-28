@@ -4,7 +4,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Routines.Commands;
+namespace Application.UnitTests.RoutinesFeaturesTests.Commands;
 
 [Collection(nameof(DataCollection))]
 public class UpdateRoutineTests

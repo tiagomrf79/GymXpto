@@ -44,15 +44,6 @@ namespace Persistence.Migrations
                 table: "Workouts",
                 column: "WorkoutId");
 
-            migrationBuilder.InsertData(
-                table: "Workouts",
-                columns: new[] { "WorkoutId", "CreatedBy", "CreatedDate", "LastModifiedBy", "LastModifiedDate", "RoutineId", "Title" },
-                values: new object[,]
-                {
-                    { new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"), "Upper body" },
-                    { new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"), "Lower body" }
-                });
-
             migrationBuilder.AddForeignKey(
                 name: "FK_Group_Workouts_WorkoutId",
                 table: "Group",

@@ -4,7 +4,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Workouts.Queries;
+namespace Application.UnitTests.WorkoutsFeaturesTests.Queries;
 
 [Collection(nameof(DataCollection))]
 public class GetWorkoutDetailTests

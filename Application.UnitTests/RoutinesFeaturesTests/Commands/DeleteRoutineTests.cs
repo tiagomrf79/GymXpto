@@ -3,7 +3,7 @@ using Application.Interfaces.Persistence;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Routines.Commands;
+namespace Application.UnitTests.RoutinesFeaturesTests.Commands;
 
 [Collection(nameof(DataCollection))]
 public class DeleteRoutineTests
@@ -22,7 +22,7 @@ public class DeleteRoutineTests
         var handler = new DeleteRoutineCommandHandler(_mockRoutineRepository.Object);
         int recordCountBefore = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
 
-        var result = await handler.Handle(new DeleteRoutineCommand() { RoutineId = idToDelete} , CancellationToken.None);
+        var result = await handler.Handle(new DeleteRoutineCommand() { RoutineId = idToDelete }, CancellationToken.None);
 
         int recordCountAfter = (await _mockRoutineRepository.Object.ListAllAsync()).Count;
         recordCountAfter.ShouldBe(recordCountBefore - 1);

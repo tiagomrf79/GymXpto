@@ -125,16 +125,6 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Routines",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "LastModifiedBy", "LastModifiedDate", "Title" },
-                values: new object[,]
-                {
-                    { new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "um treino de lower body e um treino de upper body", null, null, "Rotina do BodyStation" },
-                    { new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "um treino diferente para cada dia da semana", null, null, "Rotina do BestOf" },
-                    { new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "treino construído com base em exemplos retirados da internet", null, null, "A minha rotina" }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseSet_SupersetId",
                 table: "ExerciseSet",

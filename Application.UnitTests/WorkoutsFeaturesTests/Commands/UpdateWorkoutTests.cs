@@ -4,7 +4,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.Workouts.Commands;
+namespace Application.UnitTests.WorkoutsFeaturesTests.Commands;
 
 [Collection(nameof(DataCollection))]
 public class UpdateWorkoutTests

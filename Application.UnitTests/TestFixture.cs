@@ -15,8 +15,19 @@ public class TestFixture : IDisposable
 
     public TestFixture()
     {
-        List<Routine> routines = DataSeeder.GetDummyDataFromJsonFile();
-        List<Workout> workouts = routines.SelectMany(r => r.Workouts).ToList();
+        List<Routine> routines = new List<Routine>();
+        List<Workout> workouts = new List<Workout>();
+
+        try
+        {
+            routines = DataSeeder.GetDummyDataFromJsonFile();
+            workouts = routines.SelectMany(r => r.Workouts).ToList();
+        }
+        catch (Exception ex)
+        {
+            //TODO: handle get test data from json file exception (log)
+            //logger.LogError(ex, $"An error occurred getting test data from file. Error: {ex.Message}");
+        }
 
         MockRoutineRepository = RoutineRepositoryFactory.Create(routines);
         MockWorkoutRepository = WorkoutRepositoryFactory.Create(workouts);

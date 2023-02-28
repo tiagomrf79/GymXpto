@@ -14,7 +14,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
         {
             services.AddDbContext<GymXptoDbContext>(options =>
             {
-                options.UseInMemoryDatabase("GymXptoDbContextInMemoryTest");
+                options.UseInMemoryDatabase(Guid.NewGuid().ToString());
             });
 
             var sp = services.BuildServiceProvider();
@@ -25,6 +25,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
                 var context = scopedServices.GetRequiredService<GymXptoDbContext>();
                 //var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
+                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
                 try
@@ -34,7 +35,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
                 catch (Exception ex)
                 {
                     //TODO: handle initialize db for tests exception (log)
-                    //logger.LogError(ex, $"An error occurred seeding the database with test messages. Error: {ex.Message}");
+                    //logger.LogError(ex, $"An error occurred seeding the database with test data. Error: {ex.Message}");
                 }
             };
         });
