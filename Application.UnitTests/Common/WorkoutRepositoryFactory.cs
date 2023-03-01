@@ -4,27 +4,43 @@ using Moq;
 
 namespace Application.UnitTests.Common;
 
-public class WorkoutRepositoryFactory
+public static class WorkoutRepositoryFactory
 {
-    public static Mock<IWorkoutRepository> Create(List<Workout> workouts)
+    public static Mock<IWorkoutRepository> Create()
     {
-        var mockRepository = new Mock<IWorkoutRepository>();
+        var workouts = new List<Workout>
+        {
+            new Workout
+            {
+                WorkoutId = new Guid("29f90a63-ea8b-4936-89d5-2e071b4f924d"),
+                RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+                Title = "Workout A title"
+            },
+            new Workout
+            {
+                WorkoutId = new Guid("0867e6ab-8e81-4b6a-9e6c-f2ff30cc5a7a"),
+                RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+                Title = "Workout B title"
+            }
+        };
 
-        mockRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(
+        var mockWorkoutRepository = new Mock<IWorkoutRepository>();
+
+        mockWorkoutRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(
             (Guid idToFind) =>
                 workouts.FirstOrDefault(r => r.WorkoutId == idToFind)
             );
 
-        mockRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(workouts);
+        mockWorkoutRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(workouts);
 
-        mockRepository.Setup(repo => repo.AddAsync(It.IsAny<Workout>())).ReturnsAsync(
+        mockWorkoutRepository.Setup(repo => repo.AddAsync(It.IsAny<Workout>())).ReturnsAsync(
             (Workout workoutToAdd) =>
             {
                 workouts.Add(workoutToAdd);
                 return workoutToAdd;
             });
 
-        mockRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Workout>())).Returns(
+        mockWorkoutRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Workout>())).Returns(
             (Workout updatedWorkout) =>
             {
                 var originalWorkout = workouts.FirstOrDefault(r => r.WorkoutId == updatedWorkout.WorkoutId)!;
@@ -34,13 +50,13 @@ public class WorkoutRepositoryFactory
                 return Task.CompletedTask;
             });
 
-        mockRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Workout>())).Returns(
+        mockWorkoutRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Workout>())).Returns(
             (Workout entityToDelete) =>
             {
                 workouts.Remove(entityToDelete);
                 return Task.CompletedTask;
             });
 
-        return mockRepository;
+        return mockWorkoutRepository;
     }
 }

@@ -1,34 +1,30 @@
 ﻿using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
 using Application.Interfaces.Persistence;
+using Application.UnitTests.Common;
 using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.WorkoutsFeaturesTests.Queries;
+namespace Application.UnitTests.WorkoutsFeatures.Queries;
 
-[Collection(nameof(DataCollection))]
 public class GetRoutineWorkoutsListTests
 {
     private readonly Mock<IWorkoutRepository> _mockWorkoutRepository;
     private readonly Mock<IRoutineRepository> _mockRoutineRepository;
     private readonly IMapper _mapper;
 
-    public GetRoutineWorkoutsListTests(TestFixture testDataFixture)
+    public GetRoutineWorkoutsListTests()
     {
-        _mockWorkoutRepository = testDataFixture.MockWorkoutRepository;
-        _mockRoutineRepository = testDataFixture.MockRoutineRepository;
-        _mapper = testDataFixture.Mapper;
+        _mockWorkoutRepository = WorkoutRepositoryFactory.Create();
+        _mockRoutineRepository = RoutineRepositoryFactory.Create();
+        _mapper = MapperFactory.Create();
     }
 
     [Fact]
-    public async Task Handle_WorkoutsListReturned()
+    public async Task Handle_ShouldReturnList()
     {
+        var command = new GetRoutineWorkoutsListQuery { RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad") };
         var handler = new GetRoutineWorkoutsListQueryHandler(_mockWorkoutRepository.Object, _mockRoutineRepository.Object, _mapper);
-        var command = new GetRoutineWorkoutsListQuery()
-        {
-            RoutineId = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6")
-        };
-
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.Success.ShouldBeTrue();
