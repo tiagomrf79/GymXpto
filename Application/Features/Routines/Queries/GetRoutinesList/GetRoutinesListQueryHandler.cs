@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.Routines.Queries.GetRoutinesList;
 
-public class GetRoutinesListQueryHandler : IRequestHandler<GetRoutinesListQuery, List<RoutineListVm>>
+public class GetRoutinesListQueryHandler : IRequestHandler<GetRoutinesListQuery, GetRoutinesListQueryResponse>
 {
     private readonly IAsyncRepository<Routine> _routineRepository;
     private readonly IMapper _mapper;
@@ -16,9 +16,13 @@ public class GetRoutinesListQueryHandler : IRequestHandler<GetRoutinesListQuery,
         _mapper = mapper;
     }
 
-    public async Task<List<RoutineListVm>> Handle(GetRoutinesListQuery request, CancellationToken cancellationToken)
+    public async Task<GetRoutinesListQueryResponse> Handle(GetRoutinesListQuery request, CancellationToken cancellationToken)
     {
-        var allRoutines = (await _routineRepository.ListAllAsync()).OrderBy(r => r.Title);
-        return _mapper.Map<List<RoutineListVm>>(allRoutines);
+        var queryResponse = new GetRoutinesListQueryResponse();
+
+        var routinesList = (await _routineRepository.ListAllAsync()).OrderBy(r => r.Title);
+        queryResponse.RoutinesList = _mapper.Map<List<RoutineListVm>>(routinesList);
+
+        return queryResponse;
     }
 }

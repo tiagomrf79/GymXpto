@@ -25,7 +25,8 @@ public class GetRoutineListTests
         var handler = new GetRoutinesListQueryHandler(_mockRoutineRepository.Object, _mapper);
         var result = await handler.Handle(command, CancellationToken.None);
 
-        result.ShouldBeOfType<List<RoutineListVm>>();
-        result.Count.ShouldBeGreaterThan(0);
+        result.Success.ShouldBeTrue();
+        result.RoutinesList.ShouldNotBeNull();
+        result.RoutinesList.Count.ShouldBeGreaterThan(0);
     }
 }

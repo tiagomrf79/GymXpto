@@ -25,8 +25,9 @@ public class GetRoutinesListWithWorkoutsTests
         var handler = new GetRoutinesListWithWorkoutsQueryHandler(_mockRoutineRepository.Object, _mapper);
         var result = await handler.Handle(command, CancellationToken.None);
 
-        result.ShouldBeOfType<List<RoutineWorkoutsListVm>>();
-        result.Count.ShouldBeGreaterThan(0);
-        result.ForEach(r => r.Workouts.ShouldNotBeNull());
+        result.Success.ShouldBeTrue();
+        result.RoutineWorkoutsList.ShouldNotBeNull();
+        result.RoutineWorkoutsList.Count.ShouldBeGreaterThan(0);
+        result.RoutineWorkoutsList.ForEach(r => r.Workouts.ShouldNotBeNull());
     }
 }

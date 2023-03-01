@@ -1,5 +1,4 @@
-﻿using Application.Features.Routines.Queries.GetRoutinesList;
-using Application.Interfaces.Persistence;
+﻿using Application.Interfaces.Persistence;
 using AutoMapper;
 using Domain.Entities.Schedule;
 using MediatR;

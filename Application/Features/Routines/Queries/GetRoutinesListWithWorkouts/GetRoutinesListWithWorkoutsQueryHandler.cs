@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 
-public class GetRoutinesListWithWorkoutsQueryHandler : IRequestHandler<GetRoutinesListWithWorkoutsQuery, List<RoutineWorkoutsListVm>>
+public class GetRoutinesListWithWorkoutsQueryHandler : IRequestHandler<GetRoutinesListWithWorkoutsQuery, GetRoutinesListWithWorkoutsQueryResponse>
 {
     private readonly IRoutineRepository _routineRepository;
     private readonly IMapper _mapper;
@@ -17,9 +17,13 @@ public class GetRoutinesListWithWorkoutsQueryHandler : IRequestHandler<GetRoutin
     }
 
 
-    public async Task<List<RoutineWorkoutsListVm>> Handle(GetRoutinesListWithWorkoutsQuery request, CancellationToken cancellationToken)
+    public async Task<GetRoutinesListWithWorkoutsQueryResponse> Handle(GetRoutinesListWithWorkoutsQuery request, CancellationToken cancellationToken)
     {
-        var allRotinesWithEvents = await _routineRepository.GetRoutineWithWorkouts();
-        return _mapper.Map<List<RoutineWorkoutsListVm>>(allRotinesWithEvents);
+        var queryResponse = new GetRoutinesListWithWorkoutsQueryResponse();
+
+        var routinesList = await _routineRepository.GetRoutineWithWorkouts();
+        queryResponse.RoutineWorkoutsList = _mapper.Map<List<RoutineWorkoutsListVm>>(routinesList);
+
+        return queryResponse;
     }
 }
