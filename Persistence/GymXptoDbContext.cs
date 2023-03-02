@@ -1,7 +1,6 @@
 ﻿using Domain.Common;
 using Domain.Entities.Schedule;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace Persistence;
 

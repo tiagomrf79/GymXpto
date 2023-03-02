@@ -5,7 +5,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.RoutinesFeatures.Queries;
+namespace Application.UnitTests.RoutineFeatures.Queries;
 
 public class GetRoutineDetailTests
 {

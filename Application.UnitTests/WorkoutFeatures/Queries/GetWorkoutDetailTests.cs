@@ -5,7 +5,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.WorkoutsFeatures.Queries;
+namespace Application.UnitTests.WorkoutFeatures.Queries;
 
 public class GetWorkoutDetailTests
 {

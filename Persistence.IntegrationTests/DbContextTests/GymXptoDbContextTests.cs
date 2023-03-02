@@ -1,16 +1,16 @@
 using Domain.Entities.Schedule;
+using Persistence.IntegrationTests.Common;
 using Shouldly;
 
 namespace Persistence.IntegrationTests.DbContextTests;
 
-[Collection(nameof(DataCollection))]
 public class GymXptoDbContextTests
 {
     private GymXptoDbContext _gymXptoDbContext;
 
-    public GymXptoDbContextTests(TestFixture testDataFixture)
+    public GymXptoDbContextTests()
     {
-        _gymXptoDbContext = testDataFixture.GymXptoDbContext;
+        _gymXptoDbContext = GymXptoContextFactory.Create();
     }
 
     [Fact]
@@ -26,6 +26,7 @@ public class GymXptoDbContextTests
         await _gymXptoDbContext.SaveChangesAsync();
 
         routineToCreate.CreatedBy.ShouldBe("tf790515");
+        routineToCreate.CreatedDate.ShouldBe(DateTime.Now, TimeSpan.FromSeconds(5));
     }
 
     [Fact]
@@ -38,5 +39,7 @@ public class GymXptoDbContextTests
         await _gymXptoDbContext.SaveChangesAsync();
 
         routineToModify.LastModifiedBy.ShouldBe("tf790515");
+        routineToModify.LastModifiedDate.ShouldNotBeNull();
+        routineToModify.LastModifiedDate.Value.ShouldBe(DateTime.Now, TimeSpan.FromSeconds(5));
     }
 }

@@ -5,7 +5,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.WorkoutsFeatures.Commands;
+namespace Application.UnitTests.WorkoutFeatures.Commands;
 
 public class CreateWorkoutTests
 {

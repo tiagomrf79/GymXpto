@@ -5,7 +5,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.RoutinesFeatures.Queries;
+namespace Application.UnitTests.RoutineFeatures.Queries;
 
 public class GetRoutineListTests
 {
@@ -27,6 +27,6 @@ public class GetRoutineListTests
 
         result.Success.ShouldBeTrue();
         result.RoutinesList.ShouldNotBeNull();
-        result.RoutinesList.Count.ShouldBeGreaterThan(0);
+        result.RoutinesList.ShouldNotBeEmpty();
     }
 }

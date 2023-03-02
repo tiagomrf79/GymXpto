@@ -1,7 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Persistence.Repositories;
 

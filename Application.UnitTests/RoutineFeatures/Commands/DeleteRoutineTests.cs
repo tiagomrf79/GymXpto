@@ -4,7 +4,7 @@ using Application.UnitTests.Common;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.RoutinesFeatures.Commands;
+namespace Application.UnitTests.RoutineFeatures.Commands;
 
 public class DeleteRoutineTests
 {

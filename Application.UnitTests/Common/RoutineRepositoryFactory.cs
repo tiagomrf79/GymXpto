@@ -8,32 +8,8 @@ public static class RoutineRepositoryFactory
 {
     public static Mock<IRoutineRepository> Create()
     {
-        var routines = new List<Routine>
-        {
-            new Routine
-            {
-                RoutineId = new Guid("7b81f3cd-9383-45a9-bfee-0baf166ec6ab"),
-                Title = "Routine A title",
-                Description = "Routine A description"
-            },
-            new Routine
-            {
-                RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
-                Title = "Routine B title",
-                Description = "Routine B description",
-                Workouts =
-                {
-                    new Workout
-                    {
-                        WorkoutId = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"),
-                        RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
-                        Title = "Workout A title"
-                    }
-                }
-            }
-        };
-
         var mockRoutineRepository = new Mock<IRoutineRepository>();
+        var routines = GetData();
 
         mockRoutineRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(
            (Guid idToFind) =>
@@ -69,5 +45,35 @@ public static class RoutineRepositoryFactory
         mockRoutineRepository.Setup(repo => repo.GetRoutineWithWorkouts()).ReturnsAsync(routines);
 
         return mockRoutineRepository;
+    }
+
+    public static List<Routine> GetData()
+    {
+        var data = new List<Routine>
+        {
+            new Routine
+            {
+                RoutineId = new Guid("7b81f3cd-9383-45a9-bfee-0baf166ec6ab"),
+                Title = "Routine A title",
+                Description = "Routine A description"
+            },
+            new Routine
+            {
+                RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+                Title = "Routine B title",
+                Description = "Routine B description",
+                Workouts =
+                {
+                    new Workout
+                    {
+                        WorkoutId = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83"),
+                        RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+                        Title = "Workout A title"
+                    }
+                }
+            }
+        };
+
+        return data;
     }
 }

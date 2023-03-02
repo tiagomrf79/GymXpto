@@ -5,7 +5,7 @@ using AutoMapper;
 using Moq;
 using Shouldly;
 
-namespace Application.UnitTests.RoutinesFeatures.Queries;
+namespace Application.UnitTests.RoutineFeatures.Queries;
 
 public class GetRoutinesListWithWorkoutsTests
 {
@@ -27,7 +27,7 @@ public class GetRoutinesListWithWorkoutsTests
 
         result.Success.ShouldBeTrue();
         result.RoutineWorkoutsList.ShouldNotBeNull();
-        result.RoutineWorkoutsList.Count.ShouldBeGreaterThan(0);
+        result.RoutineWorkoutsList.ShouldNotBeEmpty();
         result.RoutineWorkoutsList.ForEach(r => r.Workouts.ShouldNotBeNull());
     }
 }
