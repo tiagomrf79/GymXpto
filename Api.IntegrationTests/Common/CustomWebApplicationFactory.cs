@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 
-namespace Api.IntegrationTests.Base;
+namespace Api.IntegrationTests.Common;
 
 public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
@@ -12,9 +12,16 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     {
         builder.ConfigureServices(services =>
         {
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<GymXptoDbContext>));
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+
+            string inMemoryCollectionName = Guid.NewGuid().ToString();
             services.AddDbContext<GymXptoDbContext>(options =>
             {
-                options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                options.UseInMemoryDatabase(inMemoryCollectionName);
             });
 
             var sp = services.BuildServiceProvider();
@@ -22,10 +29,9 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
             using (var scope = sp.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
-                var context = scopedServices.GetRequiredService<GymXptoDbContext>();
-                //var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
-                context.Database.EnsureDeleted();
+                var context = scopedServices.GetRequiredService<GymXptoDbContext>();
+
                 context.Database.EnsureCreated();
 
                 try
@@ -34,16 +40,10 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
                 }
                 catch (Exception ex)
                 {
-                    //TODO: handle initialize db for tests exception (log)
-                    //logger.LogError(ex, $"An error occurred seeding the database with test data. Error: {ex.Message}");
+                    //logger.LogError(ex, $"An error occurred seeding the database with test messages. Error: {ex.Message}");
                 }
             };
+
         });
-    }
-
-
-    public HttpClient GetAnonymousClient()
-    {
-        return CreateClient();
     }
 }

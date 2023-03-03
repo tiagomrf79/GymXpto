@@ -1,7 +1,9 @@
-﻿using Api.IntegrationTests.Base;
+﻿using Api.IntegrationTests.Common;
+using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 using Application.Features.Workouts.Commands.CreateWorkout;
 using Application.Features.Workouts.Commands.DeleteWorkout;
 using Application.Features.Workouts.Commands.UpdateWorkout;
+using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
 using Application.Features.Workouts.Queries.GetWorkoutDetail;
 using Newtonsoft.Json;
 using Shouldly;
@@ -11,27 +13,25 @@ namespace Api.IntegrationTests.Controllers;
 
 public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-    private readonly CustomWebApplicationFactory<Program> _factory;
+    private readonly HttpClient _client;
 
     public WorkoutControllerTests(CustomWebApplicationFactory<Program> factory)
     {
-        _factory = factory;
+        _client = factory.CreateClient();
     }
 
     [Fact]
-    public async Task AddWorkout_ValidWorkout_ReturnsSuccessResult()
+    public async Task PostWorkout_ValidWorkout_ShouldReturnWorkout()
     {
         var command = new CreateWorkoutCommand()
         {
-            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            RoutineId = new Guid("13aee752-5707-42be-b91e-644eb9bcaf13"),
             Title = "New workout title"
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PostAsync("api/workout", jsonContent);
+        var response = await _client.PostAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -47,7 +47,7 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task AddWorkout_NotFoundRoutine_ReturnsErrorMessage()
+    public async Task PostWorkout_NotFoundRoutine_ShouldReturnErrorMessage()
     {
         var command = new CreateWorkoutCommand()
         {
@@ -57,9 +57,7 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PostAsync("api/workout", jsonContent);
+        var response = await _client.PostAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -73,19 +71,17 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task AddWorkout_InvalidWorkout_ReturnsValidationErrors()
+    public async Task PostWorkout_InvalidWorkout_ShouldReturnValidationErrors()
     {
         var command = new CreateWorkoutCommand()
         {
-            RoutineId = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
+            RoutineId = new Guid("13aee752-5707-42be-b91e-644eb9bcaf13"),
             Title = ""
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PostAsync("api/workout", jsonContent);
+        var response = await _client.PostAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -99,20 +95,18 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateWorkout_ValidWorkout_ReturnsSucessResult()
+    public async Task PutWorkout_ValidWorkout_ShouldReturnRoutine()
     {
         var updateWorkoutCommand = new UpdateWorkoutCommand()
         {
-            WorkoutId = new Guid("0867e6ab-8e81-4b6a-9e6c-f2ff30cc5a7a"),
-            RoutineId = new Guid("d905ff6c-8bf3-4f9f-a275-598e725c6129"),
+            WorkoutId = new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"),
+            RoutineId = new Guid("d9a55fff-ed20-42c9-bf2c-2c2c8c7774aa"),
             Title = "Updated workout title"
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateWorkoutCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/workout", jsonContent);
+        var response = await _client.PutAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -129,20 +123,18 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateWorkout_NotFoundWorkout_ReturnsErrorMessage()
+    public async Task PutWorkout_NotFoundWorkout_ShouldReturnErrorMessage()
     {
         var updateWorkoutCommand = new UpdateWorkoutCommand()
         {
             WorkoutId = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb"),
-            RoutineId = new Guid("d905ff6c-8bf3-4f9f-a275-598e725c6129"),
+            RoutineId = new Guid("d9a55fff-ed20-42c9-bf2c-2c2c8c7774aa"),
             Title = "Updated workout title"
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateWorkoutCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/workout", jsonContent);
+        var response = await _client.PutAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -156,20 +148,18 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateWorkout_NotFoundRoutine_ReturnsErrorMessage()
+    public async Task PutWorkout_NotFoundRoutine_ShouldReturnErrorMessage()
     {
         var updateWorkoutCommand = new UpdateWorkoutCommand()
         {
-            WorkoutId = new Guid("0867e6ab-8e81-4b6a-9e6c-f2ff30cc5a7a"),
+            WorkoutId = new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164"),
             RoutineId = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb"),
             Title = "Updated workout title"
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateWorkoutCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/workout", jsonContent);
+        var response = await _client.PutAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -183,20 +173,18 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateWorkout_InvalidWorkout_ReturnsValidationErrors()
+    public async Task PutWorkout_InvalidWorkout_ShouldReturnValidationErrors()
     {
         var updateWorkoutCommand = new UpdateWorkoutCommand()
         {
-            WorkoutId = new Guid("0867e6ab-8e81-4b6a-9e6c-f2ff30cc5a7a"),
-            RoutineId = new Guid("d905ff6c-8bf3-4f9f-a275-598e725c6129"),
+            WorkoutId = new Guid("f4370eb8-2a9f-42f5-8d0b-3190d3760db5"),
+            RoutineId = new Guid("d9a55fff-ed20-42c9-bf2c-2c2c8c7774aa"),
             Title = ""
         };
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateWorkoutCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/workout", jsonContent);
+        var response = await _client.PutAsync("api/workout", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -210,13 +198,11 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task DeleteWorkout_ValidWorkout_ReturnsSuccessResult()
+    public async Task DeleteWorkout_ValidWorkout_ShouldReturnSuccess()
     {
         var idToDelete = new Guid("40ea0d4b-aa1f-4128-8ea3-3a63e0b01164");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.DeleteAsync($"api/workout/{idToDelete}");
+        var response = await _client.DeleteAsync($"api/workout/{idToDelete}");
 
         response.EnsureSuccessStatusCode();
 
@@ -229,13 +215,11 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task DeleteWorkout_NotFoundWorkout_ReturnsErrorMessage()
+    public async Task DeleteWorkout_NotFoundWorkout_ShouldReturnErrorMessage()
     {
         var idToDelete = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.DeleteAsync($"api/workout/{idToDelete}");
+        var response = await _client.DeleteAsync($"api/workout/{idToDelete}");
 
         response.EnsureSuccessStatusCode();
 
@@ -249,13 +233,11 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task GetWorkoutById_ValidWorkout_ReturnsSuccessResult()
+    public async Task GetWorkoutById_ValidWorkout_ShouldReturnWorkout()
     {
-        var idToReturn = new Guid("436a8442-3439-4f11-beac-ffc4269c9950");
+        var idToReturn = new Guid("e7b65a83-9fa1-4702-a2cd-6efc8955af83");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync($"api/workout/{idToReturn}");
+        var response = await _client.GetAsync($"api/workout/{idToReturn}");
 
         response.EnsureSuccessStatusCode();
 
@@ -270,13 +252,11 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task GetWorkoutById_NotFoundWorkout_ReturnsErrorMessage()
+    public async Task GetWorkoutById_NotFoundWorkout_ShouldReturnErrorMessage()
     {
         var idToReturn = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync($"api/workout/{idToReturn}");
+        var response = await _client.GetAsync($"api/workout/{idToReturn}");
 
         response.EnsureSuccessStatusCode();
 
@@ -287,5 +267,24 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
         result.ShouldBeOfType<GetWorkoutDetailQueryResponse>();
         result.Success.ShouldBeFalse();
         result.Message.ShouldNotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAllWorkouts_ShouldReturnList()
+    {
+        var routineId = new Guid("13aee752-5707-42be-b91e-644eb9bcaf13");
+
+        var response = await _client.GetAsync($"api/workout/all/{routineId}");
+
+        response.EnsureSuccessStatusCode();
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        var result = JsonConvert.DeserializeObject<GetRoutineWorkoutsListQueryResponse>(responseString);
+
+        result.ShouldBeOfType<GetRoutineWorkoutsListQueryResponse>();
+        result.Success.ShouldBeTrue();
+        result.WorkoutsList.ShouldNotBeNull();
+        result.WorkoutsList.ShouldNotBeEmpty();
     }
 }

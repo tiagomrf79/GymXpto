@@ -50,10 +50,10 @@ public class WorkoutController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("all", Name = "GetCategoryWorkouts")]
-    public async Task<ActionResult<GetRoutineWorkoutsListQueryResponse>> GetCategoryWorkouts(Guid routineId)
+    [HttpGet("all/{id}", Name = "GetRoutineWorkouts")]
+    public async Task<ActionResult<GetRoutineWorkoutsListQueryResponse>> GetCategoryWorkouts(Guid id)
     {
-        var query = new GetRoutineWorkoutsListQuery() { RoutineId = routineId };
+        var query = new GetRoutineWorkoutsListQuery() { RoutineId = id };
         var response = await _mediator.Send(query);
         return Ok(response);
     }

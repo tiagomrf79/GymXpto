@@ -1,4 +1,4 @@
-﻿using Api.IntegrationTests.Base;
+﻿using Api.IntegrationTests.Common;
 using Application.Features.Routines.Commands.CreateRoutine;
 using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Features.Routines.Commands.UpdateRoutine;
@@ -13,15 +13,15 @@ namespace Api.IntegrationTests.Controllers;
 
 public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-    private readonly CustomWebApplicationFactory<Program> _factory;
+    private readonly HttpClient _client;
 
     public RoutineControllerTests(CustomWebApplicationFactory<Program> factory)
     {
-        _factory = factory;
+        _client = factory.CreateClient();
     }
 
     [Fact]
-    public async Task AddRoutine_ValidRoutine_ReturnsSuccessResult()
+    public async Task PostRoutine_ValidRoutine_ShouldReturnRoutine()
     {
         var createRoutineCommand = new CreateRoutineCommand()
         {
@@ -30,9 +30,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
         };
         var jsonContent = new StringContent(JsonConvert.SerializeObject(createRoutineCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PostAsync("api/routine", jsonContent);
+        var response = await _client.PostAsync("api/routine", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -48,7 +46,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task AddRoutine_InvalidRoutine_ReturnsFailureResult()
+    public async Task PostRoutine_InvalidRoutine_ShouldReturnValidationErrors()
     {
         var createRoutineCommand = new CreateRoutineCommand()
         {
@@ -57,9 +55,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
         };
         var jsonContent = new StringContent(JsonConvert.SerializeObject(createRoutineCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PostAsync("api/routine", jsonContent);
+        var response = await _client.PostAsync("api/routine", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -73,19 +69,17 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateRoutine_ValidRoutine_ReturnsSuccessResult()
+    public async Task PutRoutine_ValidRoutine_ShouldReturnRoutine()
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+            RoutineId = new Guid("d9a55fff-ed20-42c9-bf2c-2c2c8c7774aa"),
             Title = "Updated routine title",
             Description = "Updated routine description"
         };
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateRoutineCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/routine", jsonContent);
+        var response = await _client.PutAsync("api/routine", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -102,19 +96,17 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateRoutine_InvalidRoutine_ReturnsFailureResult()
+    public async Task PutRoutine_InvalidRoutine_ShouldReturnValidationErrors()
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
-            RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad"),
+            RoutineId = new Guid("d9a55fff-ed20-42c9-bf2c-2c2c8c7774aa"),
             Title = String.Empty,
             Description = "Updated routine description"
         };
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateRoutineCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/routine", jsonContent);
+        var response = await _client.PutAsync("api/routine", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -128,7 +120,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task UpdateRoutine_NotFoundRoutine_ReturnsFailureResult()
+    public async Task PutRoutine_NotFoundRoutine_ShouldReturnsErrorMessage()
     {
         var updateRoutineCommand = new UpdateRoutineCommand()
         {
@@ -138,9 +130,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
         };
         var jsonContent = new StringContent(JsonConvert.SerializeObject(updateRoutineCommand), Encoding.UTF8, "application/json");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.PutAsync("api/routine", jsonContent);
+        var response = await _client.PutAsync("api/routine", jsonContent);
 
         response.EnsureSuccessStatusCode();
 
@@ -154,13 +144,11 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task DeleteRoutine_ValidRoutine_ReturnsSuccessResult()
+    public async Task DeleteRoutine_ValidRoutine_ShouldReturnsSuccess()
     {
-        var idToDelete = new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5");
+        var idToDelete = new Guid("f3f75f23-ae56-4458-8486-9844f6bc0425");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.DeleteAsync($"api/routine/{idToDelete}");
+        var response = await _client.DeleteAsync($"api/routine/{idToDelete}");
 
         response.EnsureSuccessStatusCode();
 
@@ -173,13 +161,11 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task DeleteRoutine_NotFoundRoutine_ReturnsFailureResult()
+    public async Task DeleteRoutine_NotFoundRoutine_ShouldReturnErrorMessage()
     {
         var idToDelete = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.DeleteAsync($"api/routine/{idToDelete}");
+        var response = await _client.DeleteAsync($"api/routine/{idToDelete}");
 
         response.EnsureSuccessStatusCode();
 
@@ -193,13 +179,11 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task GetRoutineById_ValidRoutine_ReturnsSuccessResult()
+    public async Task GetRoutineById_ValidRoutine_ShouldReturnRoutine()
     {
-        var idToReturn = new Guid("da572ec2-0f0b-4094-bfa7-f51329df41c6");
+        var idToReturn = new Guid("13aee752-5707-42be-b91e-644eb9bcaf13");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync($"api/routine/{idToReturn}");
+        var response = await _client.GetAsync($"api/routine/{idToReturn}");
 
         response.EnsureSuccessStatusCode();
 
@@ -214,13 +198,11 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task GetRoutineById_NotFoundRoutine_ReturnsFailureResult()
+    public async Task GetRoutineById_NotFoundRoutine_ShouldReturnErrorMessage()
     {
         var idToReturn = new Guid("aabbaabb-aabb-aabb-aabb-aabbaabbaabb");
 
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync($"api/routine/{idToReturn}");
+        var response = await _client.GetAsync($"api/routine/{idToReturn}");
 
         response.EnsureSuccessStatusCode();
 
@@ -234,36 +216,36 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
     }
 
     [Fact]
-    public async Task GetAllRoutines_ReturnsSuccessResult()
+    public async Task GetAllRoutines_ShouldReturnList()
     {
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync("api/routine/all");
+        var response = await _client.GetAsync("api/routine/all");
 
         response.EnsureSuccessStatusCode();
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<List<RoutineListVm>>(responseString);
+        var result = JsonConvert.DeserializeObject<GetRoutinesListQueryResponse>(responseString);
 
-        result.ShouldBeOfType<List<RoutineListVm>>();
-        result.ShouldNotBeEmpty();
+        result.ShouldBeOfType<GetRoutinesListQueryResponse>();
+        result.Success.ShouldBeTrue();
+        result.RoutinesList.ShouldNotBeEmpty();
     }
 
     [Fact]
-    public async Task GetAllRoutinesWithWorkouts_ReturnsSuccessResult()
+    public async Task GetAllRoutinesWithWorkouts_ShouldReturnListIncludingWorkouts()
     {
-        var client = _factory.GetAnonymousClient();
-
-        var response = await client.GetAsync("api/routine/allwithworkouts");
+        var response = await _client.GetAsync("api/routine/allwithworkouts");
 
         response.EnsureSuccessStatusCode();
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<List<RoutineWorkoutsListVm>>(responseString);
+        var result = JsonConvert.DeserializeObject<GetRoutinesListWithWorkoutsQueryResponse>(responseString);
 
-        result.ShouldBeOfType<List<RoutineWorkoutsListVm>>();
-        result.ShouldNotBeEmpty();
+        result.ShouldBeOfType<GetRoutinesListWithWorkoutsQueryResponse>();
+        result.Success.ShouldBeTrue();
+        result.RoutineWorkoutsList.ShouldNotBeNull();
+        result.RoutineWorkoutsList.ShouldNotBeEmpty();
+        result.RoutineWorkoutsList.ForEach(r => r.Workouts.ShouldNotBeNull());
     }
 }

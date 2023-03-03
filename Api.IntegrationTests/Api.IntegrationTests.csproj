@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettingstest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
@@ -28,12 +32,6 @@
     <ProjectReference Include="..\Api\Api.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\Tests.DummyData\Tests.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettingstest.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
