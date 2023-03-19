@@ -19,20 +19,21 @@ public class GetRoutineDetailQueryHandler : IRequestHandler<GetRoutineDetailQuer
 
     public async Task<GetRoutineDetailQueryResponse> Handle(GetRoutineDetailQuery request, CancellationToken cancellationToken)
     {
-        var getRoutineDetailQueryResponse = new GetRoutineDetailQueryResponse();
         var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
         
         if (routineFound == null)
         {
-            getRoutineDetailQueryResponse.Success = false;
-            getRoutineDetailQueryResponse.Message = "Routine not found.";
+            return new GetRoutineDetailQueryResponse
+            {
+                Success = false,
+                Message = "Routine not found."
+            };
         }
 
-        if (getRoutineDetailQueryResponse.Success)
+        return new GetRoutineDetailQueryResponse
         {
-            getRoutineDetailQueryResponse.Routine = _mapper.Map<RoutineDetailDto>(routineFound);
-        }
-        
-        return getRoutineDetailQueryResponse;
+            Success = true,
+            Routine = _mapper.Map<RoutineDetailDto>(routineFound)
+        };
     }
 }

@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Groups\" />
-    <Folder Include="Features\ExerciseSets\" />
-    <Folder Include="Features\Supersets\" />
-    <Folder Include="Features\UserExercises\Commands\CreateUserExercise\" />
-    <Folder Include="Features\UserExercises\Commands\DeleteUserExercise\" />
-    <Folder Include="Features\UserExercises\Commands\UpdateUserExercise\" />
-    <Folder Include="Features\UserExercises\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />

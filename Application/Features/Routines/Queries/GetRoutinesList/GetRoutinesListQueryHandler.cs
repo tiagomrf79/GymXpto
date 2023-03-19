@@ -18,11 +18,12 @@ public class GetRoutinesListQueryHandler : IRequestHandler<GetRoutinesListQuery,
 
     public async Task<GetRoutinesListQueryResponse> Handle(GetRoutinesListQuery request, CancellationToken cancellationToken)
     {
-        var queryResponse = new GetRoutinesListQueryResponse();
-
         var routinesList = (await _routineRepository.ListAllAsync()).OrderBy(r => r.Title);
-        queryResponse.RoutinesList = _mapper.Map<List<RoutineListVm>>(routinesList);
 
-        return queryResponse;
+        return new GetRoutinesListQueryResponse
+        {
+            Success = true,
+            RoutineList = _mapper.Map<List<RoutineListVm>>(routinesList)
+        };
     }
 }

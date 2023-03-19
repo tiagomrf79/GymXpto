@@ -228,7 +228,7 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         result.ShouldBeOfType<GetRoutinesListQueryResponse>();
         result.Success.ShouldBeTrue();
-        result.RoutinesList.ShouldNotBeEmpty();
+        result.RoutineList.ShouldNotBeEmpty();
     }
 
     [Fact]

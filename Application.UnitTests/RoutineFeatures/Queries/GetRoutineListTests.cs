@@ -26,7 +26,7 @@ public class GetRoutineListTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.Success.ShouldBeTrue();
-        result.RoutinesList.ShouldNotBeNull();
-        result.RoutinesList.ShouldNotBeEmpty();
+        result.RoutineList.ShouldNotBeNull();
+        result.RoutineList.ShouldNotBeEmpty();
     }
 }

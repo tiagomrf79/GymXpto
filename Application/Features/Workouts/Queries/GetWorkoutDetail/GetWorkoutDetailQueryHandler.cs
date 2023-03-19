@@ -19,19 +19,21 @@ public class GetWorkoutDetailQueryHandler : IRequestHandler<GetWorkoutDetailQuer
 
     public async Task<GetWorkoutDetailQueryResponse> Handle(GetWorkoutDetailQuery request, CancellationToken cancellationToken)
     {
-        var queryResponse = new GetWorkoutDetailQueryResponse();
-        var entityFound = await _workoutRepository.GetByIdAsync(request.WorkoutId);
+        var workoutFound = await _workoutRepository.GetByIdAsync(request.WorkoutId);
 
-        if (entityFound == null)
+        if (workoutFound == null)
         {
-            queryResponse.Success = false;
-            queryResponse.Message = "Workout not found.";
+            return new GetWorkoutDetailQueryResponse
+            {
+                Success = false,
+                Message = "Workout not found."
+            };
         }
 
-        if (queryResponse.Success)
+        return new GetWorkoutDetailQueryResponse
         {
-            queryResponse.Workout = _mapper.Map<WorkoutDetailDto>(entityFound);
-        }
-        return queryResponse;
+            Success = true,
+            Workout = _mapper.Map<WorkoutDetailDto>(workoutFound)
+        };
     }
 }

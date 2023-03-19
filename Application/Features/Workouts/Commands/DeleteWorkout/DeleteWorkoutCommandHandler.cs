@@ -15,20 +15,22 @@ public class DeleteWorkoutCommandHandler : IRequestHandler<DeleteWorkoutCommand,
 
     public async Task<DeleteWorkoutCommandResponse> Handle(DeleteWorkoutCommand request, CancellationToken cancellationToken)
     {
-        var commandResponse = new DeleteWorkoutCommandResponse();
-        var entityToDelete = await _workoutRepository.GetByIdAsync(request.WorkoutId);
+        var workoutToDelete = await _workoutRepository.GetByIdAsync(request.WorkoutId);
 
-        if (entityToDelete == null)
+        if (workoutToDelete == null)
         {
-            commandResponse.Success = false;
-            commandResponse.Message = "Workout not found.";
+            return new DeleteWorkoutCommandResponse
+            {
+                Success = false,
+                Message = "Workout not found."
+            };
         }
 
-        if (commandResponse.Success)
-        {
-            await _workoutRepository.DeleteAsync(entityToDelete!);
-        }
+        await _workoutRepository.DeleteAsync(workoutToDelete);
 
-        return commandResponse;
+        return new DeleteWorkoutCommandResponse
+        {
+            Success = true,
+        };
     }
 }

@@ -8,7 +8,7 @@ namespace Domain.Entities.Schedule;
 /// </summary>
 public class Superset : AuditableEntity
 {
-    public Guid Id { get; set; }
+    public Guid SupersetId { get; set; }
     public Guid GroupId { get; set; }
     public int Order { get; set; } //position in group of supersets
     public IList<ExerciseSet> ExercisesInSuperset { get; private set; } = new List<ExerciseSet>();

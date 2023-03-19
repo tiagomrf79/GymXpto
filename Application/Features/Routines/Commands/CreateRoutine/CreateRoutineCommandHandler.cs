@@ -18,35 +18,28 @@ public class CreateRoutineCommandHandler : IRequestHandler<CreateRoutineCommand,
 
     public async Task<CreateRoutineCommandResponse> Handle(CreateRoutineCommand request, CancellationToken cancellationToken)
     {
-        var createRoutineCommandResponse = new CreateRoutineCommandResponse();
-
         var validator = new CreateRoutineCommandValidator();
         var validationResult = await validator.ValidateAsync(request);
 
-        if (validationResult.Errors.Count > 0)
+        if (!validationResult.IsValid)
         {
-            createRoutineCommandResponse.Success = false;
-            createRoutineCommandResponse.ValidationErrors = new List<string>();
-
-            foreach (var error in validationResult.Errors)
+            return new CreateRoutineCommandResponse
             {
-                createRoutineCommandResponse.ValidationErrors.Add(error.ErrorMessage);
-            }
-        }
-
-        if (createRoutineCommandResponse.Success)
-        {
-            var routine = new Routine() {
-                //TODO: add UserId
-                //UserId = request.UserId,
-                Title = request.Title,
-                Description = request.Description
+                Success = false,
+                ValidationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList()
             };
-
-            routine = await _routineRepository.AddAsync(routine);
-            createRoutineCommandResponse.Routine = _mapper.Map<CreateRoutineDto>(routine);
         }
 
-        return createRoutineCommandResponse;
+        var newRoutine = new Routine() {
+            Title = request.Title,
+            Description = request.Description
+        };
+        newRoutine = await _routineRepository.AddAsync(newRoutine);
+
+        return new CreateRoutineCommandResponse
+        {
+            Success = true,
+            Routine = _mapper.Map<CreateRoutineDto>(newRoutine)
+        };
     }
 }

@@ -34,7 +34,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ideias.txt = ideias.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Common", "Tests.DummyData\Tests.Common.csproj", "{9C89F8A9-2895-48BE-B350-031058764954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Common", "Tests.DummyData\Tests.Common.csproj", "{9C89F8A9-2895-48BE-B350-031058764954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasm", "BlazorWasm\BlazorWasm.csproj", "{F9859B46-8111-483C-8C9D-C472ADC175CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,10 @@ Global
 		{9C89F8A9-2895-48BE-B350-031058764954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C89F8A9-2895-48BE-B350-031058764954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C89F8A9-2895-48BE-B350-031058764954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9859B46-8111-483C-8C9D-C472ADC175CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9859B46-8111-483C-8C9D-C472ADC175CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9859B46-8111-483C-8C9D-C472ADC175CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9859B46-8111-483C-8C9D-C472ADC175CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{C992DE46-F33B-4DED-BF5C-B9170E998B5D} = {3FCDCF10-7A18-4B2F-9DB3-776D5CD7D844}
 		{994D0027-9A4A-4FE5-A76D-6DD046991304} = {A38C4450-7826-4824-9764-D8D1707EFC08}
 		{9C89F8A9-2895-48BE-B350-031058764954} = {A38C4450-7826-4824-9764-D8D1707EFC08}
+		{F9859B46-8111-483C-8C9D-C472ADC175CF} = {3FCDCF10-7A18-4B2F-9DB3-776D5CD7D844}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC42A828-3939-41B9-94B2-FAF7D1401084}

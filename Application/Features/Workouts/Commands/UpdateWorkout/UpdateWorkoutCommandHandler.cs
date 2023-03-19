@@ -21,44 +21,47 @@ public class UpdateWorkoutCommandHandler : IRequestHandler<UpdateWorkoutCommand,
 
     public async Task<UpdateWorkoutCommandResponse> Handle(UpdateWorkoutCommand request, CancellationToken cancellationToken)
     {
-        var commandResponse = new UpdateWorkoutCommandResponse();
-        var entityToUpdate = await _workoutRepository.GetByIdAsync(request.WorkoutId);
+        var workoutToUpdate = await _workoutRepository.GetByIdAsync(request.WorkoutId);
+
+        if (workoutToUpdate == null)
+        {
+            return new UpdateWorkoutCommandResponse
+            {
+                Success = false,
+                Message = "Workout not found."
+            };
+        }
+
         var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
 
-        if (entityToUpdate == null)
+        if (routineFound == null)
         {
-            commandResponse.Success = false;
-            commandResponse.Message = "Workout not found.";
-        }
-        else if (routineFound == null)
-        {
-            commandResponse.Success = false;
-            commandResponse.Message = "Routine not found.";
-        }
-        else
-        {
-            var validator = new UpdateWorkoutCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0) 
+            return new UpdateWorkoutCommandResponse
             {
-                commandResponse.Success = false;
-                commandResponse.ValidationErrors = new List<string>();
-
-                foreach (var error in validationResult.Errors)
-                {
-                    commandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
+                Success = false,
+                Message = "Routine not found."
+            };
         }
 
-        if (commandResponse.Success)
+        var validator = new UpdateWorkoutCommandValidator();
+        var validationResult = await validator.ValidateAsync(request);
+
+        if (!validationResult.IsValid)
         {
-            _mapper.Map(request, entityToUpdate, typeof(UpdateWorkoutCommand), typeof(Workout));
-            await _workoutRepository.UpdateAsync(entityToUpdate!);
-            commandResponse.Workout = _mapper.Map<UpdateWorkoutDto>(entityToUpdate);
+            return new UpdateWorkoutCommandResponse
+            {
+                Success = false,
+                ValidationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+            };
         }
 
-        return commandResponse;
+        _mapper.Map(request, workoutToUpdate, typeof(UpdateWorkoutCommand), typeof(Workout));
+        await _workoutRepository.UpdateAsync(workoutToUpdate);
+
+        return new UpdateWorkoutCommandResponse
+        {
+            Success = true,
+            Workout = _mapper.Map<UpdateWorkoutDto>(workoutToUpdate)
+        };
     }
 }

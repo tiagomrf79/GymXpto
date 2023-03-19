@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Persistence;
-using AutoMapper;
 using Domain.Entities.Schedule;
 using MediatR;
 
@@ -16,20 +15,22 @@ public class DeleteRoutineCommandHandler : IRequestHandler<DeleteRoutineCommand,
 
     public async Task<DeleteRoutineCommandResponse> Handle(DeleteRoutineCommand request, CancellationToken cancellationToken)
     {
-        var deleteRoutineCommandResponse = new DeleteRoutineCommandResponse();
         var routineToDelete = await _routineRepository.GetByIdAsync(request.RoutineId);
 
         if (routineToDelete == null)
         {
-            deleteRoutineCommandResponse.Success = false;
-            deleteRoutineCommandResponse.Message = "Routine not found.";
+            return new DeleteRoutineCommandResponse
+            {
+                Success = false,
+                Message = "Routine not found."
+            };
         }
 
-        if (deleteRoutineCommandResponse.Success)
+        await _routineRepository.DeleteAsync(routineToDelete);
+
+        return new DeleteRoutineCommandResponse
         {
-            await _routineRepository.DeleteAsync(routineToDelete!);
-        }
-
-        return deleteRoutineCommandResponse;
+            Success = true
+        };
     }
 }

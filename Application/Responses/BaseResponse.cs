@@ -10,15 +10,4 @@ public class BaseResponse
     {
         Success = true;
     }
-    public BaseResponse(string message)
-    {
-        Success = true;
-        Message = message;
-    }
-
-    public BaseResponse(string message, bool success)
-    {
-        Success = success;
-        Message = message;
-    }
 }

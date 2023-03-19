@@ -19,11 +19,12 @@ public class GetRoutinesListWithWorkoutsQueryHandler : IRequestHandler<GetRoutin
 
     public async Task<GetRoutinesListWithWorkoutsQueryResponse> Handle(GetRoutinesListWithWorkoutsQuery request, CancellationToken cancellationToken)
     {
-        var queryResponse = new GetRoutinesListWithWorkoutsQueryResponse();
-
         var routinesList = await _routineRepository.GetRoutineWithWorkouts();
-        queryResponse.RoutineWorkoutsList = _mapper.Map<List<RoutineWorkoutsListVm>>(routinesList);
 
-        return queryResponse;
+        return new GetRoutinesListWithWorkoutsQueryResponse
+        {
+            Success = true,
+            RoutineWorkoutsList = _mapper.Map<List<RoutineWorkoutsListVm>>(routinesList)
+        };
     }
 }

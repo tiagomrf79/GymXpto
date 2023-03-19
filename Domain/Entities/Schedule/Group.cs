@@ -8,7 +8,7 @@ namespace Domain.Entities.Schedule;
 /// </summary>
 public class Group : AuditableEntity
 {
-    public Guid Id { get; set; }
+    public Guid GroupId { get; set; }
     public Guid WorkoutId { get; set; }
     public int Order { get; set; } //position in workout
     public int RestBetweenSets { get; set; }

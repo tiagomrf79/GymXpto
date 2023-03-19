@@ -19,38 +19,36 @@ public class UpdateRoutineCommandHandler : IRequestHandler<UpdateRoutineCommand,
 
     public async Task<UpdateRoutineCommandResponse> Handle(UpdateRoutineCommand request, CancellationToken cancellationToken)
     {
-        var updateRoutineCommandResponse = new UpdateRoutineCommandResponse();
         var routineToUpdate = await _routineRepository.GetByIdAsync(request.RoutineId);
 
         if (routineToUpdate == null)
         {
-            updateRoutineCommandResponse.Success = false;
-            updateRoutineCommandResponse.Message = "Routine not found.";
-        }
-        else
-        {
-            var validator = new UpdateRoutineCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0)
+            return new UpdateRoutineCommandResponse
             {
-                updateRoutineCommandResponse.Success = false;
-                updateRoutineCommandResponse.ValidationErrors = new List<string>();
-
-                foreach (var error in validationResult.Errors)
-                {
-                    updateRoutineCommandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
+                Success = false,
+                Message = "Routine not found."
+            };
         }
 
-        if (updateRoutineCommandResponse.Success)
+        var validator = new UpdateRoutineCommandValidator();
+        var validationResult = await validator.ValidateAsync(request);
+
+        if (!validationResult.IsValid)
         {
-            _mapper.Map(request, routineToUpdate, typeof(UpdateRoutineCommand), typeof(Routine));
-            await _routineRepository.UpdateAsync(routineToUpdate!);
-            updateRoutineCommandResponse.Routine = _mapper.Map<UpdateRoutineDto>(routineToUpdate);
+            return new UpdateRoutineCommandResponse
+            {
+                Success = false,
+                ValidationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+            };
         }
 
-        return updateRoutineCommandResponse;
+        _mapper.Map(request, routineToUpdate, typeof(UpdateRoutineCommand), typeof(Routine));
+        await _routineRepository.UpdateAsync(routineToUpdate);
+
+        return new UpdateRoutineCommandResponse
+        {
+            Success = true,
+            Routine = _mapper.Map<UpdateRoutineDto>(routineToUpdate)
+        };
     }
 }

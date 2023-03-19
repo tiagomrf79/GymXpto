@@ -18,46 +18,44 @@ public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand,
         _mapper = mapper;
     }
 
-
     public async Task<CreateWorkoutCommandResponse> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
     {
-        var commandResponse = new CreateWorkoutCommandResponse();
+        //var commandResponse = new CreateWorkoutCommandResponse();
         var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
 
         if (routineFound == null)
         {
-            commandResponse.Success = false;
-            commandResponse.Message = "Routine not found.";
-        }
-        else
-        {
-            var validator = new CreateWorkoutCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0)
+            return new CreateWorkoutCommandResponse
             {
-                commandResponse.Success = false;
-                commandResponse.ValidationErrors = new List<string>();
-
-                foreach (var error in validationResult.Errors)
-                {
-                    commandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
-        }
-
-        if (commandResponse.Success)
-        {
-            var newEntity = new Workout()
-            {
-                RoutineId = request.RoutineId,
-                Title = request.Title
+                Success = false,
+                Message = "Routine not found."
             };
-
-            newEntity = await _workoutRepository.AddAsync(newEntity);
-            commandResponse.Workout = _mapper.Map<CreateWorkoutDto>(newEntity);
         }
 
-        return commandResponse;
+        var validator = new CreateWorkoutCommandValidator();
+        var validationResult = await validator.ValidateAsync(request);
+
+        if (!validationResult.IsValid)
+        {
+            return new CreateWorkoutCommandResponse
+            {
+                Success = false,
+                ValidationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+            };
+        }
+
+        var newWorkout = new Workout()
+        {
+            RoutineId = request.RoutineId,
+            Title = request.Title
+        };
+
+        newWorkout = await _workoutRepository.AddAsync(newWorkout);
+
+        return new CreateWorkoutCommandResponse
+        {
+            Success = true,
+            Workout = _mapper.Map<CreateWorkoutDto>(newWorkout)
+        };
     }
 }

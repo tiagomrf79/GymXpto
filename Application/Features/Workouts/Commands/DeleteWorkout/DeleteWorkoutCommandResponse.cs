@@ -4,7 +4,4 @@ namespace Application.Features.Workouts.Commands.DeleteWorkout;
 
 public class DeleteWorkoutCommandResponse : BaseResponse
 {
-    public DeleteWorkoutCommandResponse() : base()
-    {
-    }
 }

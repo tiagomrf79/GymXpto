@@ -7,7 +7,7 @@ namespace Domain.Entities.Report;
 /// </summary>
 public class WorkoutLog : AuditableEntity
 {
-    public Guid Id { get; set; }
+    public Guid WorkoutLogId { get; set; }
     public string WorkoutTitle { get; set; } = string.Empty;
     public string RoutineTitle { get; set; } = string.Empty;
     public DateTime WorkoutStartDate { get; set; }

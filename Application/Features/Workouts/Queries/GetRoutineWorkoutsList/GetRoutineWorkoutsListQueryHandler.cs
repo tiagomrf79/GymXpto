@@ -21,21 +21,23 @@ public class GetRoutineWorkoutsListQueryHandler : IRequestHandler<GetRoutineWork
 
     public async Task<GetRoutineWorkoutsListQueryResponse> Handle(GetRoutineWorkoutsListQuery request, CancellationToken cancellationToken)
     {
-        var queryResponse = new GetRoutineWorkoutsListQueryResponse();
         var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
 
         if (routineFound == null)
         {
-            queryResponse.Success = false;
-            queryResponse.Message = "Routine not found.";
+            return new GetRoutineWorkoutsListQueryResponse
+            {
+                Success = false,
+                Message = "Routine not found."
+            };
         }
 
-        if (queryResponse.Success)
+        var workoutsList = (await _workoutRepository.ListAllAsync()).Where(w => w.RoutineId == request.RoutineId);
+
+        return new GetRoutineWorkoutsListQueryResponse
         {
-            var workoutsList = (await _workoutRepository.ListAllAsync()).Where(w => w.RoutineId == request.RoutineId);
-            queryResponse.WorkoutsList = _mapper.Map<List<WorkoutListVm>>(workoutsList);
-        }
-
-        return queryResponse;
+            Success = true,
+            WorkoutsList = _mapper.Map<List<WorkoutListVm>>(workoutsList)
+        };
     }
 }
