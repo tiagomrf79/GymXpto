@@ -41,17 +41,17 @@ public class CreateExerciseCommandValidator : AbstractValidator<CreateExerciseCo
             .MaximumLength(500).When(e => !string.IsNullOrEmpty(e.Comments)).WithMessage("{PropertyName} must not exceed 500 characters.");
     }
 
-    private async Task<bool> ExistsInMuscleRepository(Guid MuscleId, CancellationToken arg2)
+    private async Task<bool> ExistsInMuscleRepository(Guid muscleId, CancellationToken arg2)
     {
-        var muscleFound = await _muscleRepository.GetByIdAsync(MuscleId);
+        var muscleFound = await _muscleRepository.GetByIdAsync(muscleId);
         return muscleFound != null;
     }
 
-    private async Task<bool> ExistsInEquipmentRepository(Guid? EquipmentId, CancellationToken arg2)
+    private async Task<bool> ExistsInEquipmentRepository(Guid? equipmentId, CancellationToken arg2)
     {
-        if (EquipmentId == null) return true;
+        if (equipmentId == null) return true;
 
-        var equipmentFound = await _equipmentRepository.GetByIdAsync(EquipmentId.Value);
+        var equipmentFound = await _equipmentRepository.GetByIdAsync(equipmentId.Value);
         return equipmentFound != null;
     }
 }

@@ -32,18 +32,7 @@ public class UpdateWorkoutCommandHandler : IRequestHandler<UpdateWorkoutCommand,
             };
         }
 
-        var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
-
-        if (routineFound == null)
-        {
-            return new UpdateWorkoutCommandResponse
-            {
-                Success = false,
-                Message = "Routine not found."
-            };
-        }
-
-        var validator = new UpdateWorkoutCommandValidator();
+        var validator = new UpdateWorkoutCommandValidator(_routineRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

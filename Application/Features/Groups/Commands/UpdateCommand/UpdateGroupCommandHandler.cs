@@ -30,18 +30,7 @@ public class UpdateGroupCommandHandler : IRequestHandler<UpdateGroupCommand, Upd
             };
         };
 
-        var workoutFound = await _workoutRepository.GetByIdAsync(request.WorkoutId);
-
-        if (workoutFound == null)
-        {
-            return new UpdateGroupCommandResponse
-            {
-                Success = false,
-                Message = "Workout not found."
-            };
-        }
-
-        var validator = new UpdateGroupCommandValidator();
+        var validator = new UpdateGroupCommandValidator(_workoutRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

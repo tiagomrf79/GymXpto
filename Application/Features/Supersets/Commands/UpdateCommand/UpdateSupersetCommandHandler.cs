@@ -31,18 +31,7 @@ public class UpdateSupersetCommandHandler : IRequestHandler<UpdateSupersetComman
             };
         }
 
-        var groupFound = await _groupRepository.GetByIdAsync(request.GroupId);
-
-        if (groupFound == null)
-        {
-            return new UpdateSupersetCommandResponse
-            {
-                Success = false,
-                Message = "Group not found."
-            };
-        }
-
-        var validator = new UpdateSupersetCommandValidator();
+        var validator = new UpdateSupersetCommandValidator(_groupRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

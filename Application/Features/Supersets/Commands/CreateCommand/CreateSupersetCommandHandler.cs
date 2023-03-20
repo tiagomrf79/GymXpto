@@ -20,18 +20,7 @@ public class CreateSupersetCommandHandler : IRequestHandler<CreateSupersetComman
 
     public async Task<CreateSupersetCommandResponse> Handle(CreateSupersetCommand request, CancellationToken cancellationToken)
     {
-        var groupFound = await _groupRepository.GetByIdAsync(request.GroupId);
-
-        if (groupFound == null)
-        {
-            return new CreateSupersetCommandResponse
-            {
-                Success = false,
-                Message = "Group not found."
-            };
-        }
-
-        var validator = new CreateSupersetCommandValidator();
+        var validator = new CreateSupersetCommandValidator(_groupRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

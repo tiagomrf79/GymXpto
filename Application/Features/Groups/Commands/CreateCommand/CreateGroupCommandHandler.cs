@@ -20,18 +20,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Cre
 
     public async Task<CreateGroupCommandResponse> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
     {
-        var workoutFound = await _workoutRepository.GetByIdAsync(request.WorkoutId);
-
-        if (workoutFound == null)
-        {
-            return new CreateGroupCommandResponse
-            {
-                Success = false,
-                Message = "Workout not found."
-            };
-        }
-
-        var validator = new CreateGroupCommandValidator();
+        var validator = new CreateGroupCommandValidator(_workoutRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

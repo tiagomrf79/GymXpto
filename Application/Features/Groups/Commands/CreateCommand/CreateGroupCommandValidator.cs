@@ -1,11 +1,20 @@
-﻿using FluentValidation;
+﻿using Application.Interfaces.Persistence;
+using Domain.Entities.Schedule;
+using FluentValidation;
 
 namespace Application.Features.Groups.Commands.CreateCommand;
 
 public class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommand>
 {
-    public CreateGroupCommandValidator()
+    private readonly IAsyncRepository<Workout> _workoutRepository;
+
+    public CreateGroupCommandValidator(IAsyncRepository<Workout> workoutRepository)
     {
+        _workoutRepository = workoutRepository;
+
+        RuleFor(g => g.WorkoutId)
+            .MustAsync(ExistsInWorkoutRepository).WithMessage("Invalid value for {PropertyName}.");
+
         RuleFor(g => g.Order)
             .NotNull()
             .WithMessage("{PropertyName} is required.")
@@ -17,5 +26,11 @@ public class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommand>
             .WithMessage("{PropertyName} is required.")
             .GreaterThan(0)
             .WithMessage("{PropertyName} must be greater than zero.");
+    }
+
+    private async Task<bool> ExistsInWorkoutRepository(Guid workoutId, CancellationToken arg2)
+    {
+        var workoutFound = await _workoutRepository.GetByIdAsync(workoutId);
+        return workoutFound != null;
     }
 }

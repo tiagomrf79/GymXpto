@@ -20,19 +20,7 @@ public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand,
 
     public async Task<CreateWorkoutCommandResponse> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
     {
-        //var commandResponse = new CreateWorkoutCommandResponse();
-        var routineFound = await _routineRepository.GetByIdAsync(request.RoutineId);
-
-        if (routineFound == null)
-        {
-            return new CreateWorkoutCommandResponse
-            {
-                Success = false,
-                Message = "Routine not found."
-            };
-        }
-
-        var validator = new CreateWorkoutCommandValidator();
+        var validator = new CreateWorkoutCommandValidator(_routineRepository);
         var validationResult = await validator.ValidateAsync(request);
 
         if (!validationResult.IsValid)
