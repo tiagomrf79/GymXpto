@@ -1,13 +1,16 @@
-﻿using Application.Features.Exercises.Commands.CreateCommand;
-using Application.Features.Exercises.Commands.UpdateCommand;
+﻿using Application.Features.Equipments.Commands.CreateEquipment;
+using Application.Features.Equipments.Commands.UpdateEquipment;
+using Application.Features.Equipments.Queries.GetEquipmentList;
+using Application.Features.Exercises.Commands.CreateExercise;
+using Application.Features.Exercises.Commands.UpdateExercise;
 using Application.Features.Exercises.Queries.GetExerciseDetail;
-using Application.Features.Exercises.Queries.GetExercisesList;
-using Application.Features.ExerciseSets.Commands.CreateCommand;
-using Application.Features.ExerciseSets.Commands.UpdateCommand;
+using Application.Features.Exercises.Queries.GetExerciseList;
+using Application.Features.ExerciseSets.Commands.CreateExerciseSet;
+using Application.Features.ExerciseSets.Commands.UpdateExerciseSet;
 using Application.Features.ExerciseSets.Queries.GetExerciseSetDetail;
 using Application.Features.ExerciseSets.Queries.GetSupersetExerciseSetsList;
-using Application.Features.Groups.Commands.CreateCommand;
-using Application.Features.Groups.Commands.UpdateCommand;
+using Application.Features.Groups.Commands.CreateGroup;
+using Application.Features.Groups.Commands.UpdateGroup;
 using Application.Features.Groups.Queries.GetGroupDetail;
 using Application.Features.Groups.Queries.GetWorkoutGroupsList;
 using Application.Features.Routines.Commands.CreateRoutine;
@@ -15,8 +18,8 @@ using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Features.Routines.Queries.GetRoutineDetail;
 using Application.Features.Routines.Queries.GetRoutinesList;
 using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
-using Application.Features.Supersets.Commands.CreateCommand;
-using Application.Features.Supersets.Commands.UpdateCommand;
+using Application.Features.Supersets.Commands.CreateSuperset;
+using Application.Features.Supersets.Commands.UpdateSuperset;
 using Application.Features.Supersets.Queries.GetGroupSupersetsList;
 using Application.Features.Supersets.Queries.GetSupersetDetail;
 using Application.Features.Workouts.Commands.CreateWorkout;
@@ -72,5 +75,9 @@ public class MappingProfile : Profile
 		CreateMap<Exercise, ExerciseDetailDto>();
 		CreateMap<Exercise, ExerciseListVm>();
 
+        CreateMap<Equipment, CreateEquipmentDto>();
+        CreateMap<Equipment, UpdateEquipmentCommand>().ReverseMap();
+        CreateMap<Equipment, UpdateEquipmentDto>();
+        CreateMap<Equipment, EquipmentListVm>();
     }
 }
