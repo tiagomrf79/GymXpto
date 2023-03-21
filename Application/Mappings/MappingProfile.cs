@@ -13,6 +13,9 @@ using Application.Features.Groups.Commands.CreateGroup;
 using Application.Features.Groups.Commands.UpdateGroup;
 using Application.Features.Groups.Queries.GetGroupDetail;
 using Application.Features.Groups.Queries.GetWorkoutGroupsList;
+using Application.Features.Muscles.Commands.CreateMuscle;
+using Application.Features.Muscles.Commands.UpdateMuscle;
+using Application.Features.Muscles.Queries.GetMuscleList;
 using Application.Features.Routines.Commands.CreateRoutine;
 using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Features.Routines.Queries.GetRoutineDetail;
@@ -79,5 +82,10 @@ public class MappingProfile : Profile
         CreateMap<Equipment, UpdateEquipmentCommand>().ReverseMap();
         CreateMap<Equipment, UpdateEquipmentDto>();
         CreateMap<Equipment, EquipmentListVm>();
+
+		CreateMap<Muscle, CreateMuscleDto>();
+		CreateMap<Muscle, UpdateMuscleCommand>().ReverseMap();
+		CreateMap<Muscle, UpdateMuscleDto>();
+		CreateMap<Muscle, MuscleListVm>();
     }
 }
