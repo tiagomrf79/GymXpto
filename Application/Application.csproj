@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Muscles\Commands\UpdateMuscle\" />
+    <Folder Include="Features\Muscles\Queries\GetMuscleList\" />
+  </ItemGroup>
+
 </Project>
