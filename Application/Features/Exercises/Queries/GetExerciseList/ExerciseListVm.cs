@@ -8,7 +8,6 @@ public class ExerciseListVm
     public int? UtilityType { get; set; }
     public int MechanicType { get; set; }
     public int MovementType { get; set; }
-    public Guid MainMuscleWorkedId { get; set; }
     public Guid? MainEquipmentUsedId { get; set; }
     public string? Comments { get; set; }
 }

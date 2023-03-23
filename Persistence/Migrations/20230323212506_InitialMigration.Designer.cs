@@ -12,7 +12,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(GymXptoDbContext))]
-    [Migration("20230221174504_InitialMigration")]
+    [Migration("20230323212506_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,14 +20,138 @@ namespace Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Equipment", b =>
+                {
+                    b.Property<Guid>("EquipmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("EquipmentId");
+
+                    b.ToTable("Equipments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.Property<Guid>("ExerciseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comments")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Instructions")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("MainEquipmentUsedId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MechanicType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovementType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int?>("UtilityType")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExerciseId");
+
+                    b.HasIndex("MainEquipmentUsedId");
+
+                    b.ToTable("Exercises");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ExerciseMuscles", b =>
+                {
+                    b.Property<Guid>("ExerciseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MuscleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsMainMuscle")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ExerciseId", "MuscleId");
+
+                    b.HasIndex("MuscleId");
+
+                    b.ToTable("ExerciseMuscles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Muscle", b =>
+                {
+                    b.Property<Guid>("MuscleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("MuscleId");
+
+                    b.ToTable("Muscles");
+                });
+
             modelBuilder.Entity("Domain.Entities.Schedule.ExerciseSet", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ExerciseSetId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -55,16 +179,18 @@ namespace Persistence.Migrations
                     b.Property<int>("TargetRepetitions")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ExerciseSetId");
+
+                    b.HasIndex("ExerciseId");
 
                     b.HasIndex("SupersetId");
 
-                    b.ToTable("ExerciseSet");
+                    b.ToTable("ExerciseSets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Group", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("GroupId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -89,16 +215,16 @@ namespace Persistence.Migrations
                     b.Property<Guid>("WorkoutId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("GroupId");
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Routine", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("RoutineId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -119,39 +245,17 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RoutineId");
 
                     b.ToTable("Routines");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("5f5606f9-8e09-47d8-8fe0-6cbad8ab49e5"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "um treino diferente para cada dia da semana",
-                            Title = "Rotina do BestOf"
-                        },
-                        new
-                        {
-                            Id = new Guid("336b45ac-a39e-46d9-8c47-164240c0fd4c"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "um treino de lower body e um treino de upper body",
-                            Title = "Rotina do BodyStation"
-                        },
-                        new
-                        {
-                            Id = new Guid("baf3caf7-b1e2-4b50-ba93-b41677751d98"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "treino construído com base em exemplos retirados da internet",
-                            Title = "A minha rotina"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Superset", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("SupersetId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -173,16 +277,16 @@ namespace Persistence.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("SupersetId");
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Superset");
+                    b.ToTable("Supersets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Workout", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("WorkoutId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -203,49 +307,99 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                    b.HasKey("WorkoutId");
 
                     b.HasIndex("RoutineId");
 
-                    b.ToTable("Workout");
+                    b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.HasOne("Domain.Entities.Equipment", "MainEquipmentUsed")
+                        .WithMany()
+                        .HasForeignKey("MainEquipmentUsedId");
+
+                    b.Navigation("MainEquipmentUsed");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ExerciseMuscles", b =>
+                {
+                    b.HasOne("Domain.Entities.Exercise", "Exercise")
+                        .WithMany("MusclesWorked")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Muscle", "Muscle")
+                        .WithMany()
+                        .HasForeignKey("MuscleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Muscle");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.ExerciseSet", b =>
                 {
-                    b.HasOne("Domain.Entities.Schedule.Superset", null)
+                    b.HasOne("Domain.Entities.Exercise", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Schedule.Superset", "Superset")
                         .WithMany("ExercisesInSuperset")
                         .HasForeignKey("SupersetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Superset");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Group", b =>
                 {
-                    b.HasOne("Domain.Entities.Schedule.Workout", null)
+                    b.HasOne("Domain.Entities.Schedule.Workout", "Workout")
                         .WithMany("ExerciseSequence")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Superset", b =>
                 {
-                    b.HasOne("Domain.Entities.Schedule.Group", null)
+                    b.HasOne("Domain.Entities.Schedule.Group", "Group")
                         .WithMany("Sets")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Workout", b =>
                 {
-                    b.HasOne("Domain.Entities.Schedule.Routine", null)
+                    b.HasOne("Domain.Entities.Schedule.Routine", "Routine")
                         .WithMany("Workouts")
                         .HasForeignKey("RoutineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Routine");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.Navigation("MusclesWorked");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule.Group", b =>

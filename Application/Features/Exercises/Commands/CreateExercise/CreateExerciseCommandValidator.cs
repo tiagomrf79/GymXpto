@@ -6,12 +6,10 @@ namespace Application.Features.Exercises.Commands.CreateExercise;
 
 public class CreateExerciseCommandValidator : AbstractValidator<CreateExerciseCommand>
 {
-    private readonly IAsyncRepository<Muscle> _muscleRepository;
     private readonly IAsyncRepository<Equipment> _equipmentRepository;
 
-    public CreateExerciseCommandValidator(IAsyncRepository<Muscle> muscleRepository, IAsyncRepository<Equipment> equipmentRepository)
+    public CreateExerciseCommandValidator(IAsyncRepository<Equipment> equipmentRepository)
     {
-        _muscleRepository = muscleRepository;
         _equipmentRepository = equipmentRepository;
 
         RuleFor(e => e.Name)
@@ -31,20 +29,11 @@ public class CreateExerciseCommandValidator : AbstractValidator<CreateExerciseCo
         RuleFor(e => e.MovementType)
             .IsInEnum().WithMessage("Invalid value for {PropertyName}.");
 
-        RuleFor(e => e.MainMuscleWorkedId)
-            .MustAsync(ExistsInMuscleRepository).WithMessage("Invalid value for {PropertyName}.");
-
         RuleFor(e => e.MainEquipmentUsedId)
             .MustAsync(ExistsInEquipmentRepository).When(e => e.MainEquipmentUsedId.HasValue).WithMessage("Invalid value for {PropertyName}.");
 
         RuleFor(e => e.Comments)
             .MaximumLength(500).When(e => !string.IsNullOrEmpty(e.Comments)).WithMessage("{PropertyName} must not exceed 500 characters.");
-    }
-
-    private async Task<bool> ExistsInMuscleRepository(Guid muscleId, CancellationToken arg2)
-    {
-        var muscleFound = await _muscleRepository.GetByIdAsync(muscleId);
-        return muscleFound != null;
     }
 
     private async Task<bool> ExistsInEquipmentRepository(Guid? equipmentId, CancellationToken arg2)

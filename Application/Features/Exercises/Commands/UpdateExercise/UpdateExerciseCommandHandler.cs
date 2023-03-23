@@ -8,15 +8,13 @@ namespace Application.Features.Exercises.Commands.UpdateExercise;
 public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseCommand, UpdateExerciseCommandResponse>
 {
     private readonly IAsyncRepository<Exercise> _exerciseRepository;
-    private readonly IAsyncRepository<Muscle> _muscleRepository;
     private readonly IAsyncRepository<Equipment> _equipmentRepository;
     private readonly IMapper _mapper;
 
-    public UpdateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository, IAsyncRepository<Muscle> muscleRepository,
-        IAsyncRepository<Equipment> equipmentRepository, IMapper mapper)
+    public UpdateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository, IAsyncRepository<Equipment> equipmentRepository, 
+        IMapper mapper)
     {
         _exerciseRepository = exerciseRepository;
-        _muscleRepository = muscleRepository;
         _equipmentRepository = equipmentRepository;
         _mapper = mapper;
     }
@@ -34,7 +32,7 @@ public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseComman
             };
         }
 
-        var validator = new UpdateExerciseCommandValidator(_muscleRepository, _equipmentRepository);
+        var validator = new UpdateExerciseCommandValidator(_equipmentRepository);
         var validationResults = await validator.ValidateAsync(request);
 
         if (!validationResults.IsValid)

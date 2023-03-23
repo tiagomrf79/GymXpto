@@ -9,22 +9,20 @@ namespace Application.Features.Exercises.Commands.CreateExercise;
 public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, CreateExerciseCommandResponse>
 {
     private readonly IAsyncRepository<Exercise> _exerciseRepository;
-    private readonly IAsyncRepository<Muscle> _muscleRepository;
     private readonly IAsyncRepository<Equipment> _equipmentRepository;
     private readonly IMapper _mapper;
 
-    public CreateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository,
-        IAsyncRepository<Muscle> muscleRepository, IAsyncRepository<Equipment> equipmentRepository, IMapper mapper)
+    public CreateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository, IAsyncRepository<Equipment> equipmentRepository, 
+        IMapper mapper)
     {
         _exerciseRepository = exerciseRepository;
-        _muscleRepository = muscleRepository;
         _equipmentRepository = equipmentRepository;
         _mapper = mapper;
     }
 
     public async Task<CreateExerciseCommandResponse> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateExerciseCommandValidator(_muscleRepository, _equipmentRepository);
+        var validator = new CreateExerciseCommandValidator(_equipmentRepository);
         var validationResults = await validator.ValidateAsync(request);
 
         if (!validationResults.IsValid)
@@ -43,7 +41,6 @@ public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseComman
             UtilityType = (UtilityTypes?)request.UtilityType,
             MechanicType = (MechanicTypes)request.MechanicType,
             MovementType = (MovementTypes)request.MovementType,
-            MainMuscleWorkedId = request.MainMuscleWorkedId,
             MainEquipmentUsedId = request.MainEquipmentUsedId,
             Comments = request.Comments
         };
