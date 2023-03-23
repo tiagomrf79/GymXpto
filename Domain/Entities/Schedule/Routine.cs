@@ -7,11 +7,11 @@ namespace Domain.Entities.Schedule;
 /// </summary>
 public class Routine : AuditableEntity
 {
-    public Guid RoutineId { get; set; }
+    public Guid RoutineId { get; set; } //principal key (primary key)
 
     //TODO: Add UserId
     //public Guid UserId { get; set; }
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }
-    public IList<Workout> Workouts { get; private set; } = new List<Workout>();
+    public IList<Workout> Workouts { get; private set; } = new List<Workout>(); //collection navigation property
 }

@@ -30,7 +30,7 @@ public class DeleteMuscleCommandHandler : IRequestHandler<DeleteMuscleCommand, D
 
         var linkedExercises = (await _exerciseRepository.ListAllAsync()).Where(e => 
         e.MainMuscleWorkedId == request.MuscleId 
-        || (e.SynergistsMusclesWorked != null && e.SynergistsMusclesWorked.Contains(request.MuscleId))).ToList();
+        || (e.SynergistsMusclesWorked != null && e.SynergistsMusclesWorked.Contains(muscleToDelete))).ToList();
 
         if (linkedExercises.Count() > 0)
         {

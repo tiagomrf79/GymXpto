@@ -1,5 +1,4 @@
 ﻿using Api.IntegrationTests.Common;
-using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 using Application.Features.Workouts.Commands.CreateWorkout;
 using Application.Features.Workouts.Commands.DeleteWorkout;
 using Application.Features.Workouts.Commands.UpdateWorkout;

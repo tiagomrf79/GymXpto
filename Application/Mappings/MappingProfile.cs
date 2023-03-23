@@ -49,14 +49,10 @@ public class MappingProfile : Profile
 		CreateMap<Workout, RoutineWorkoutDto>();
 
 		CreateMap<Workout, CreateWorkoutDto>();
-		CreateMap<Routine, CreateWorkoutRoutineDto>();
         CreateMap<Workout, UpdateWorkoutCommand>().ReverseMap();
         CreateMap<Workout, UpdateWorkoutDto>();
-		CreateMap<Routine, UpdateWorkoutRoutineDto>();
 		CreateMap<Workout, WorkoutDetailDto>();
-		CreateMap<Routine, WorkoutDetailRoutineDto>();
 		CreateMap<Workout, WorkoutListDto>();
-		CreateMap<Routine, WorkoutListRoutineDto>();
 
 		CreateMap<Group, CreateGroupDto>();
 		CreateMap<Group, UpdateRoutineCommand>().ReverseMap();

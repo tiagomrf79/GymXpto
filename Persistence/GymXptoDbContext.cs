@@ -23,7 +23,54 @@ public class GymXptoDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(GymXptoDbContext).Assembly);
+        //modelBuilder.ApplyConfigurationsFromAssembly(typeof(GymXptoDbContext).Assembly);
+
+        // ROUTINE <=> WORKOUT
+        modelBuilder.Entity<Workout>()
+            .HasOne(w => w.Routine)
+            .WithMany(r => r.Workouts);
+
+        // WORKOUT <=> GROUP
+        modelBuilder.Entity<Group>()
+            .HasOne(g => g.Workout)
+            .WithMany(w => w.ExerciseSequence);
+
+        // GROUP <=> SUPERSET
+        modelBuilder.Entity<Superset>()
+            .HasOne(s => s.Group)
+            .WithMany(g => g.Sets);
+
+        // SUPERSET <=> EXERCISE SET
+        modelBuilder.Entity<ExerciseSet>()
+            .HasOne(es => es.Superset)
+            .WithMany(s => s.ExercisesInSuperset);
+
+        // EXERCISE SET <=> EXERCISE
+        // one Exercise can be associated with several Exercise Sets
+        modelBuilder.Entity<ExerciseSet>()
+            .HasOne(es => es.Exercise)
+            .WithMany();
+
+        // EXERCISE <=> MAIN MUSCLE
+        // one Muscle can be associated with several Exercises
+        modelBuilder.Entity<Exercise>()
+            .HasOne(e => e.MainMuscleWorked)
+            .WithMany();
+
+        // EXERCISE <=> EQUIPMENT
+        // one Equipment (dumbbells for example) can be associated with several Exercises
+        modelBuilder.Entity<Exercise>() //OPTIONAL
+            .HasOne(e => e.MainEquipmentUsed)
+            .WithMany()
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
+        // EXERCISE <=> OTHER MUSCLES
+        // one Muscle can be associated with several Exercises
+        modelBuilder.Entity<Exercise>() //OPTIONAL
+            .HasMany(e => e.SynergistsMusclesWorked)
+            .WithOne()
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
