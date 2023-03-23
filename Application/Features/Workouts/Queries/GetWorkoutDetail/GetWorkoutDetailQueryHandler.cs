@@ -7,10 +7,10 @@ namespace Application.Features.Workouts.Queries.GetWorkoutDetail;
 
 public class GetWorkoutDetailQueryHandler : IRequestHandler<GetWorkoutDetailQuery, GetWorkoutDetailQueryResponse>
 {
-    private readonly IAsyncRepository<Workout> _workoutRepository;
+    private readonly IWorkoutRepository _workoutRepository;
     private readonly IMapper _mapper;
 
-    public GetWorkoutDetailQueryHandler(IAsyncRepository<Workout> workoutRepository, IMapper mapper)
+    public GetWorkoutDetailQueryHandler(IWorkoutRepository workoutRepository, IMapper mapper)
     {
         _workoutRepository = workoutRepository;
         _mapper = mapper;

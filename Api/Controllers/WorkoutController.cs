@@ -1,9 +1,8 @@
-﻿using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
-using Application.Features.Workouts.Commands.CreateWorkout;
+﻿using Application.Features.Workouts.Commands.CreateWorkout;
 using Application.Features.Workouts.Commands.DeleteWorkout;
 using Application.Features.Workouts.Commands.UpdateWorkout;
-using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
 using Application.Features.Workouts.Queries.GetWorkoutDetail;
+using Application.Features.Workouts.Queries.GetWorkoutsFromRoutine;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +36,7 @@ public class WorkoutController : ControllerBase
     [HttpDelete("{id}", Name = "DeleteWorkout")]
     public async Task<ActionResult<DeleteWorkoutCommandResponse>> Delete(Guid id)
     {
-        var command = new DeleteWorkoutCommand() { WorkoutId = id };
+        var command = new DeleteWorkoutCommand { WorkoutId = id };
         var response = await _mediator.Send(command);
         return Ok(response);
     }
@@ -51,9 +50,9 @@ public class WorkoutController : ControllerBase
     }
 
     [HttpGet("all/{id}", Name = "GetRoutineWorkouts")]
-    public async Task<ActionResult<GetRoutineWorkoutsListQueryResponse>> GetCategoryWorkouts(Guid id)
+    public async Task<ActionResult<GetWorkoutsFromRoutineQueryResponse>> GetRoutineWorkouts(Guid id)
     {
-        var query = new GetRoutineWorkoutsListQuery() { RoutineId = id };
+        var query = new GetWorkoutsFromRoutineQuery() { RoutineId = id };
         var response = await _mediator.Send(query);
         return Ok(response);
     }

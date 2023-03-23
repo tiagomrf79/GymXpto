@@ -2,8 +2,8 @@
 using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Features.Routines.Queries.GetRoutineDetail;
-using Application.Features.Routines.Queries.GetRoutinesList;
-using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
+using Application.Features.Routines.Queries.GetRoutineList;
+using Application.Features.Routines.Queries.GetRoutineListWithWorkouts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,20 +51,17 @@ public class RoutineController : ControllerBase
     }
 
     [HttpGet("all", Name = "GetAllRoutines")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<RoutineListVm>>> GetAllRoutines()
+    public async Task<ActionResult<List<RoutineListDto>>> GetAllRoutines()
     {
-        var getRoutinesListQuery = new GetRoutinesListQuery();
+        var getRoutinesListQuery = new GetRoutineListQuery();
         var response = await _mediator.Send(getRoutinesListQuery);
         return Ok(response);
     }
 
     [HttpGet("allwithworkouts", Name = "GetAllRoutinesWithWorkouts")]
-    [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<RoutineWorkoutsListVm>>> GetAllRoutinesWithWorkouts()
+    public async Task<ActionResult<List<RoutineWorkoutsListDto>>> GetAllRoutinesWithWorkouts()
     {
-        var getRoutinesListWithWorkoutsQuery = new GetRoutinesListWithWorkoutsQuery();
+        var getRoutinesListWithWorkoutsQuery = new GetRoutineListWithWorkoutsQuery();
         var response = await _mediator.Send(getRoutinesListWithWorkoutsQuery);
         return Ok(response);
     }

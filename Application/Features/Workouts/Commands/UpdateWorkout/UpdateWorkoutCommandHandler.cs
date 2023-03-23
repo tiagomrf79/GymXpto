@@ -7,11 +7,11 @@ namespace Application.Features.Workouts.Commands.UpdateWorkout;
 
 public class UpdateWorkoutCommandHandler : IRequestHandler<UpdateWorkoutCommand, UpdateWorkoutCommandResponse>
 {
-    private readonly IAsyncRepository<Workout> _workoutRepository;
-    private readonly IAsyncRepository<Routine> _routineRepository;
+    private readonly IWorkoutRepository _workoutRepository;
+    private readonly IRoutineRepository _routineRepository;
     private readonly IMapper _mapper;
 
-    public UpdateWorkoutCommandHandler(IAsyncRepository<Workout> workoutRepository, IAsyncRepository<Routine> routineRepository, IMapper mapper)
+    public UpdateWorkoutCommandHandler(IWorkoutRepository workoutRepository, IRoutineRepository routineRepository, IMapper mapper)
     {
         _workoutRepository = workoutRepository;
         _routineRepository = routineRepository;

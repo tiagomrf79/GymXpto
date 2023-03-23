@@ -1,14 +1,13 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Entities.Schedule;
 using FluentValidation;
 
 namespace Application.Features.Workouts.Commands.UpdateWorkout;
 
 public class UpdateWorkoutCommandValidator : AbstractValidator<UpdateWorkoutCommand>
 {
-    private readonly IAsyncRepository<Routine> _routineRepository;
+    private readonly IRoutineRepository _routineRepository;
 
-    public UpdateWorkoutCommandValidator(IAsyncRepository<Routine> routineRepository)
+    public UpdateWorkoutCommandValidator(IRoutineRepository routineRepository)
     {
         _routineRepository = routineRepository;
 

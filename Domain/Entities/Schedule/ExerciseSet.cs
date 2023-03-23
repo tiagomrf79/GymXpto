@@ -10,7 +10,9 @@ public class ExerciseSet : AuditableEntity
 {
     public Guid ExerciseSetId { get; set; }
     public Guid SupersetId { get; set; }
+    public Superset Superset { get; set; } = null!;
     public int Order { get; set; } //position in superset
     public int TargetRepetitions { get; set; }
     public Guid ExerciseId { get; set; }
+    public Exercise Exercise { get; set; } = null!;
 }

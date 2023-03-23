@@ -1,14 +1,13 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Entities.Schedule;
 using FluentValidation;
 
 namespace Application.Features.Supersets.Commands.UpdateSuperset;
 
 public class UpdateSupersetCommandValidator : AbstractValidator<UpdateSupersetCommand>
 {
-    private readonly IAsyncRepository<Group> _groupRepository;
+    private readonly IGroupRepository _groupRepository;
 
-    public UpdateSupersetCommandValidator(IAsyncRepository<Group> groupRepository)
+    public UpdateSupersetCommandValidator(IGroupRepository groupRepository)
     {
         _groupRepository = groupRepository;
 

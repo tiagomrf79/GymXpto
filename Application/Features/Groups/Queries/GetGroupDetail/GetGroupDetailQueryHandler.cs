@@ -1,16 +1,15 @@
 ﻿using Application.Interfaces.Persistence;
 using AutoMapper;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.Groups.Queries.GetGroupDetail;
 
 public class GetGroupDetailQueryHandler : IRequestHandler<GetGroupDetailQuery, GetGroupDetailQueryResponse>
 {
-    private readonly IAsyncRepository<Group> _groupRepository;
+    private readonly IGroupRepository _groupRepository;
     private readonly IMapper _mapper;
 
-    public GetGroupDetailQueryHandler(IAsyncRepository<Group> groupRepository, IMapper mapper)
+    public GetGroupDetailQueryHandler(IGroupRepository groupRepository, IMapper mapper)
     {
         _groupRepository = groupRepository;
         _mapper = mapper;

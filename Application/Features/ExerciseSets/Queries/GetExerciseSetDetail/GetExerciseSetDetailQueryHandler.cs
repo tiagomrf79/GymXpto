@@ -1,16 +1,15 @@
 ﻿using Application.Interfaces.Persistence;
 using AutoMapper;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.ExerciseSets.Queries.GetExerciseSetDetail;
 
 public class GetExerciseSetDetailQueryHandler : IRequestHandler<GetExerciseSetDetailQuery, GetExerciseSetDetailQueryResponse>
 {
-    private readonly IAsyncRepository<ExerciseSet> _exerciseSetRepository;
+    private readonly IExerciseSetRepository _exerciseSetRepository;
     private readonly IMapper _mapper;
 
-    public GetExerciseSetDetailQueryHandler(IAsyncRepository<ExerciseSet> exerciseSetRepository, IMapper mapper)
+    public GetExerciseSetDetailQueryHandler(IExerciseSetRepository exerciseSetRepository, IMapper mapper)
     {
         _exerciseSetRepository = exerciseSetRepository;
         _mapper = mapper;

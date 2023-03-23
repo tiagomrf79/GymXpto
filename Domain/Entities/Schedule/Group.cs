@@ -10,7 +10,8 @@ public class Group : AuditableEntity
 {
     public Guid GroupId { get; set; }
     public Guid WorkoutId { get; set; }
+    public Workout Workout { get; set; } = null!;
     public int Order { get; set; } //position in workout
     public int RestBetweenSets { get; set; }
-    public IList<Superset> Sets { get; private set; } = new List<Superset>();
+    public IList<Superset> Sets { get; private set; } = new List<Superset>(); //collection navigation property
 }

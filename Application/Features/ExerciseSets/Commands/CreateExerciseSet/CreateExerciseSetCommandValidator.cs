@@ -1,16 +1,15 @@
 ﻿using Application.Interfaces.Persistence;
 using Domain.Entities;
-using Domain.Entities.Schedule;
 using FluentValidation;
 
 namespace Application.Features.ExerciseSets.Commands.CreateExerciseSet;
 
 public class CreateExerciseSetCommandValidator : AbstractValidator<CreateExerciseSetCommand>
 {
-    private readonly IAsyncRepository<Superset> _supersetRepository;
+    private readonly ISupersetRepository _supersetRepository;
     private readonly IAsyncRepository<Exercise> _exerciseRepository;
 
-    public CreateExerciseSetCommandValidator(IAsyncRepository<Superset> supersetRepository, IAsyncRepository<Exercise> exerciseRepository)
+    public CreateExerciseSetCommandValidator(ISupersetRepository supersetRepository, IAsyncRepository<Exercise> exerciseRepository)
     {
         _supersetRepository = supersetRepository;
         _exerciseRepository = exerciseRepository;

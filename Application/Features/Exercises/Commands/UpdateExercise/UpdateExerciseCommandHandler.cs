@@ -12,7 +12,8 @@ public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseComman
     private readonly IAsyncRepository<Equipment> _equipmentRepository;
     private readonly IMapper _mapper;
 
-    public UpdateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository, IAsyncRepository<Muscle> muscleRepository, IAsyncRepository<Equipment> equipmentRepository, IMapper mapper)
+    public UpdateExerciseCommandHandler(IAsyncRepository<Exercise> exerciseRepository, IAsyncRepository<Muscle> muscleRepository,
+        IAsyncRepository<Equipment> equipmentRepository, IMapper mapper)
     {
         _exerciseRepository = exerciseRepository;
         _muscleRepository = muscleRepository;

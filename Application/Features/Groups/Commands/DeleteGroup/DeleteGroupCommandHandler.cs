@@ -1,14 +1,13 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.Groups.Commands.DeleteGroup;
 
 public class DeleteGroupCommandHandler : IRequestHandler<DeleteGroupCommand, DeleteGroupCommandResponse>
 {
-    private readonly IAsyncRepository<Group> _groupRepository;
+    private readonly IGroupRepository _groupRepository;
 
-    public DeleteGroupCommandHandler(IAsyncRepository<Group> groupRepository)
+    public DeleteGroupCommandHandler(IGroupRepository groupRepository)
     {
         _groupRepository = groupRepository;
     }

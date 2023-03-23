@@ -3,8 +3,8 @@ using Application.Features.Routines.Commands.CreateRoutine;
 using Application.Features.Routines.Commands.DeleteRoutine;
 using Application.Features.Routines.Commands.UpdateRoutine;
 using Application.Features.Routines.Queries.GetRoutineDetail;
-using Application.Features.Routines.Queries.GetRoutinesList;
-using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
+using Application.Features.Routines.Queries.GetRoutineList;
+using Application.Features.Routines.Queries.GetRoutineListWithWorkouts;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Text;
@@ -224,9 +224,9 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<GetRoutinesListQueryResponse>(responseString);
+        var result = JsonConvert.DeserializeObject<GetRoutineListQueryResponse>(responseString);
 
-        result.ShouldBeOfType<GetRoutinesListQueryResponse>();
+        result.ShouldBeOfType<GetRoutineListQueryResponse>();
         result.Success.ShouldBeTrue();
         result.RoutineList.ShouldNotBeEmpty();
     }
@@ -240,9 +240,9 @@ public class RoutineControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<GetRoutinesListWithWorkoutsQueryResponse>(responseString);
+        var result = JsonConvert.DeserializeObject<GetRoutineListWithWorkoutsQueryResponse>(responseString);
 
-        result.ShouldBeOfType<GetRoutinesListWithWorkoutsQueryResponse>();
+        result.ShouldBeOfType<GetRoutineListWithWorkoutsQueryResponse>();
         result.Success.ShouldBeTrue();
         result.RoutineWorkoutsList.ShouldNotBeNull();
         result.RoutineWorkoutsList.ShouldNotBeEmpty();

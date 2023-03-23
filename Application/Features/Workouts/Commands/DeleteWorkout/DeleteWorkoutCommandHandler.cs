@@ -6,9 +6,9 @@ namespace Application.Features.Workouts.Commands.DeleteWorkout;
 
 public class DeleteWorkoutCommandHandler : IRequestHandler<DeleteWorkoutCommand, DeleteWorkoutCommandResponse>
 {
-    private readonly IAsyncRepository<Workout> _workoutRepository;
+    private readonly IWorkoutRepository _workoutRepository;
 
-    public DeleteWorkoutCommandHandler(IAsyncRepository<Workout> workoutRepository)
+    public DeleteWorkoutCommandHandler(IWorkoutRepository workoutRepository)
     {
         _workoutRepository = workoutRepository;
     }

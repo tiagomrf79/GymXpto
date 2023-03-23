@@ -16,9 +16,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\ExerciseLogs\Commands\" />
-    <Folder Include="Features\ExerciseLogs\Queries\" />
-  </ItemGroup>
-
 </Project>

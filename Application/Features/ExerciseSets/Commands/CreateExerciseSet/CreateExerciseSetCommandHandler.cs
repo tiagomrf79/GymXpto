@@ -8,13 +8,13 @@ namespace Application.Features.ExerciseSets.Commands.CreateExerciseSet;
 
 public class CreateExerciseSetCommandHandler : IRequestHandler<CreateExerciseSetCommand, CreateExerciseSetCommandResponse>
 {
-    private readonly IAsyncRepository<ExerciseSet> _exerciseSetRepository;
-    private readonly IAsyncRepository<Superset> _supersetRepository;
+    private readonly IExerciseSetRepository _exerciseSetRepository;
+    private readonly ISupersetRepository _supersetRepository;
     private readonly IAsyncRepository<Exercise> _exerciseRepository;
     private readonly IMapper _mapper;
 
-    public CreateExerciseSetCommandHandler(IAsyncRepository<ExerciseSet> exerciseSetRepository,
-        IAsyncRepository<Superset> supersetRepository, IAsyncRepository<Exercise> exerciseRepository, IMapper mapper)
+    public CreateExerciseSetCommandHandler(IExerciseSetRepository exerciseSetRepository,
+        ISupersetRepository supersetRepository, IAsyncRepository<Exercise> exerciseRepository, IMapper mapper)
     {
         _exerciseSetRepository = exerciseSetRepository;
         _supersetRepository = supersetRepository;

@@ -6,9 +6,9 @@ namespace Application.Features.Groups.Commands.CreateGroup;
 
 public class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommand>
 {
-    private readonly IAsyncRepository<Workout> _workoutRepository;
+    private readonly IWorkoutRepository _workoutRepository;
 
-    public CreateGroupCommandValidator(IAsyncRepository<Workout> workoutRepository)
+    public CreateGroupCommandValidator(IWorkoutRepository workoutRepository)
     {
         _workoutRepository = workoutRepository;
 

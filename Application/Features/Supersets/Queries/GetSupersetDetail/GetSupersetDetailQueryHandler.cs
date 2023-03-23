@@ -1,16 +1,15 @@
 ﻿using Application.Interfaces.Persistence;
 using AutoMapper;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.Supersets.Queries.GetSupersetDetail;
 
 public class GetSupersetDetailQueryHandler : IRequestHandler<GetSupersetDetailQuery, GetSupersetDetailQueryResponse>
 {
-    private readonly IAsyncRepository<Superset> _supersetRepository;
+    private readonly ISupersetRepository _supersetRepository;
     private readonly IMapper _mapper;
 
-    public GetSupersetDetailQueryHandler(IAsyncRepository<Superset> supersetRepository, IMapper mapper)
+    public GetSupersetDetailQueryHandler(ISupersetRepository supersetRepository, IMapper mapper)
     {
         _supersetRepository = supersetRepository;
         _mapper = mapper;

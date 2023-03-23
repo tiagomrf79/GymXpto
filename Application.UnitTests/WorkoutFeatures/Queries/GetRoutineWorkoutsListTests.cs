@@ -1,4 +1,4 @@
-﻿using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
+﻿using Application.Features.Workouts.Queries.GetWorkoutsFromRoutine;
 using Application.Interfaces.Persistence;
 using Application.UnitTests.Common;
 using AutoMapper;
@@ -23,12 +23,12 @@ public class GetRoutineWorkoutsListTests
     [Fact]
     public async Task Handle_ShouldReturnList()
     {
-        var command = new GetRoutineWorkoutsListQuery { RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad") };
-        var handler = new GetRoutineWorkoutsListQueryHandler(_mockWorkoutRepository.Object, _mockRoutineRepository.Object, _mapper);
+        var command = new GetWorkoutsFromRoutineQuery { RoutineId = new Guid("3c4854c9-cab8-4555-9d4d-dcf107ce61ad") };
+        var handler = new GetWorkoutsFromRoutineQueryHandler(_mockWorkoutRepository.Object, _mockRoutineRepository.Object, _mapper);
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.Success.ShouldBeTrue();
-        result.WorkoutsList.ShouldNotBeNull();
-        result.WorkoutsList.Count.ShouldBeGreaterThan(0);
+        result.WorkoutList.ShouldNotBeNull();
+        result.WorkoutList.Count.ShouldBeGreaterThan(0);
     }
 }

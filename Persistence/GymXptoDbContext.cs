@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Entities;
 using Domain.Entities.Schedule;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,13 @@ public class GymXptoDbContext : DbContext
 {
     public DbSet<Routine> Routines { get; set; }
     public DbSet<Workout> Workouts { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Superset> Supersets { get; set; }
+    public DbSet<ExerciseSet> ExerciseSets { get; set; }
+    public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<Equipment> Equipments { get; set; }
+    public DbSet<Muscle> Muscles { get; set; }
+
     
     public GymXptoDbContext(DbContextOptions<GymXptoDbContext> options) : base(options)
 	{

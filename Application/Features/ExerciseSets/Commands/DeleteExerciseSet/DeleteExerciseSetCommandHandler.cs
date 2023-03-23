@@ -1,14 +1,13 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.ExerciseSets.Commands.DeleteExerciseSet;
 
 public class DeleteExerciseSetCommandHandler : IRequestHandler<DeleteExerciseSetCommand, DeleteExerciseSetCommandResponse>
 {
-    private readonly IAsyncRepository<ExerciseSet> _exerciseSetRepository;
+    private readonly IExerciseSetRepository _exerciseSetRepository;
 
-    public DeleteExerciseSetCommandHandler(IAsyncRepository<ExerciseSet> exerciseSetRepository)
+    public DeleteExerciseSetCommandHandler(IExerciseSetRepository exerciseSetRepository)
     {
         _exerciseSetRepository = exerciseSetRepository;
     }

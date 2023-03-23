@@ -1,14 +1,13 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Entities.Schedule;
 using MediatR;
 
 namespace Application.Features.Supersets.Commands.DeleteSuperset;
 
 public class DeleteSupersetCommandHandler : IRequestHandler<DeleteSupersetCommand, DeleteSupersetCommandResponse>
 {
-    private readonly IAsyncRepository<Superset> _supersetRepository;
+    private readonly ISupersetRepository _supersetRepository;
 
-    public DeleteSupersetCommandHandler(IAsyncRepository<Superset> supersetRepository)
+    public DeleteSupersetCommandHandler(ISupersetRepository supersetRepository)
     {
         _supersetRepository = supersetRepository;
     }

@@ -7,11 +7,11 @@ namespace Application.Features.Groups.Commands.CreateGroup;
 
 public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, CreateGroupCommandResponse>
 {
-    private readonly IAsyncRepository<Group> _groupRepository;
-    private readonly IAsyncRepository<Workout> _workoutRepository;
+    private readonly IGroupRepository _groupRepository;
+    private readonly IWorkoutRepository _workoutRepository;
     private readonly IMapper _mapper;
 
-    public CreateGroupCommandHandler(IAsyncRepository<Group> groupRepository, IAsyncRepository<Workout> workoutRepository, IMapper mapper)
+    public CreateGroupCommandHandler(IGroupRepository groupRepository, IWorkoutRepository workoutRepository, IMapper mapper)
     {
         _groupRepository = groupRepository;
         _workoutRepository = workoutRepository;

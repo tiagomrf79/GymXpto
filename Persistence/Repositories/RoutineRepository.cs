@@ -12,7 +12,10 @@ public class RoutineRepository : BaseRepository<Routine>, IRoutineRepository
 
     public async Task<List<Routine>> GetRoutineWithWorkouts()
     {
-        var allRoutines = await _dbContext.Routines.Include(r => r.Workouts).ToListAsync();
+        var allRoutines = await _dbContext.Routines
+            .Include(r => r.Workouts)
+            .ToListAsync();
+        
         return allRoutines;
     }
 }

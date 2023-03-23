@@ -16,8 +16,10 @@ public class Exercise : AuditableEntity
     public MechanicTypes MechanicType { get; set; }
     public MovementTypes MovementType { get; set; }
     public Guid MainMuscleWorkedId { get; set; }
-    public IList<Guid>? SynergistsMusclesWorked { get; private set; } = new List<Guid>();
+    public Muscle MainMuscleWorked { get; set; } = null!;
+    public List<Muscle>? SynergistsMusclesWorked { get; private set; } = new List<Muscle>();
     public Guid? MainEquipmentUsedId { get; set; }
+    public Equipment? MainEquipmentUsed { get; set; }
     public string? Comments { get; set; }
     
     //TODO: for exercise execution: property with image or GIF or video or sequence of images?

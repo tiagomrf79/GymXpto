@@ -19,6 +19,9 @@ public static class PersistenceServiceRegistration
         
         services.AddScoped<IRoutineRepository, RoutineRepository>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
+        services.AddScoped<ISupersetRepository, SupersetRepository>();
+        services.AddScoped<IExerciseSetRepository, ExerciseSetRepository>();
 
         return services;
     }

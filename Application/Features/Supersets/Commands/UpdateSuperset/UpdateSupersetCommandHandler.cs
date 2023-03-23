@@ -7,11 +7,11 @@ namespace Application.Features.Supersets.Commands.UpdateSuperset;
 
 public class UpdateSupersetCommandHandler : IRequestHandler<UpdateSupersetCommand, UpdateSupersetCommandResponse>
 {
-    private readonly IAsyncRepository<Superset> _supersetRepository;
-    private readonly IAsyncRepository<Group> _groupRepository;
+    private readonly ISupersetRepository _supersetRepository;
+    private readonly IGroupRepository _groupRepository;
     private readonly IMapper _mapper;
 
-    public UpdateSupersetCommandHandler(IAsyncRepository<Superset> supersetRepository, IAsyncRepository<Group> groupRepository, IMapper mapper)
+    public UpdateSupersetCommandHandler(ISupersetRepository supersetRepository, IGroupRepository groupRepository, IMapper mapper)
     {
         _supersetRepository = supersetRepository;
         _groupRepository = groupRepository;

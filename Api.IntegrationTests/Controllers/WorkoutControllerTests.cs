@@ -3,8 +3,8 @@ using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
 using Application.Features.Workouts.Commands.CreateWorkout;
 using Application.Features.Workouts.Commands.DeleteWorkout;
 using Application.Features.Workouts.Commands.UpdateWorkout;
-using Application.Features.Workouts.Queries.GetRoutineWorkoutsList;
 using Application.Features.Workouts.Queries.GetWorkoutDetail;
+using Application.Features.Workouts.Queries.GetWorkoutsFromRoutine;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Text;
@@ -280,11 +280,11 @@ public class WorkoutControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<GetRoutineWorkoutsListQueryResponse>(responseString);
+        var result = JsonConvert.DeserializeObject<GetWorkoutsFromRoutineQueryResponse>(responseString);
 
-        result.ShouldBeOfType<GetRoutineWorkoutsListQueryResponse>();
+        result.ShouldBeOfType<GetWorkoutsFromRoutineQueryResponse>();
         result.Success.ShouldBeTrue();
-        result.WorkoutsList.ShouldNotBeNull();
-        result.WorkoutsList.ShouldNotBeEmpty();
+        result.WorkoutList.ShouldNotBeNull();
+        result.WorkoutList.ShouldNotBeEmpty();
     }
 }

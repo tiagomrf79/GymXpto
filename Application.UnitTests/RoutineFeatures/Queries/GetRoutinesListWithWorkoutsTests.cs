@@ -1,4 +1,4 @@
-﻿using Application.Features.Routines.Queries.GetRoutinesListWithWorkouts;
+﻿using Application.Features.Routines.Queries.GetRoutineListWithWorkouts;
 using Application.Interfaces.Persistence;
 using Application.UnitTests.Common;
 using AutoMapper;
@@ -21,8 +21,8 @@ public class GetRoutinesListWithWorkoutsTests
     [Fact]
     public async Task Handle_ShouldReturnListIncludingWorkouts()
     {
-        var command = new GetRoutinesListWithWorkoutsQuery();
-        var handler = new GetRoutinesListWithWorkoutsQueryHandler(_mockRoutineRepository.Object, _mapper);
+        var command = new GetRoutineListWithWorkoutsQuery();
+        var handler = new GetRoutineListWithWorkoutsQueryHandler(_mockRoutineRepository.Object, _mapper);
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.Success.ShouldBeTrue();
