@@ -13,10 +13,7 @@ Learn practices and concepts, by implementing:
 Eventually use the API and core developed to introduce new projects like .NET Maui, React and Angular.
 
 ## To do
-- Complete tests by following guidelines from article, book or course.
-  - Learn more about how testing should be done in each different type of test (units tests, integration tests, etc.)
-  - Figure out all the things that should be tested in each layer of a clean architecture application
-- Expand the current work done in Application, Api and Tests to the remaining entities
+- Complete tests
 - Implement identity functionality...
 - Implement logging and exception handling...
 - Develop the Blazor UI...
