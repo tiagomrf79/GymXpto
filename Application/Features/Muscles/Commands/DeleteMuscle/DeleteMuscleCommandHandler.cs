@@ -28,10 +28,7 @@ public class DeleteMuscleCommandHandler : IRequestHandler<DeleteMuscleCommand, D
             };
         }
 
-        //TODO: refactor linked exercises in delete muscle command handler
-                
-        /*var linkedExercises = (await _exerciseRepository.ListAllAsync()).Where(e => 
-            e.MusclesWorked.Contains(muscleToDelete.)).ToList();
+        var linkedExercises = (await _exerciseRepository.ListAllAsync()).Where(e => e.MusclesWorked.Where(m => m.MuscleId == request.MuscleId).Any());
 
         if (linkedExercises.Count() > 0)
         {
@@ -40,7 +37,7 @@ public class DeleteMuscleCommandHandler : IRequestHandler<DeleteMuscleCommand, D
                 Success = false,
                 Message = "Muscle cannot be deleted since it's being used."
             };
-        }*/
+        }
 
         await _muscleRepository.DeleteAsync(muscleToDelete);
 
