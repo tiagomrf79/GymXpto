@@ -1,16 +1,16 @@
 ﻿{
-  "iisSettings": {
+  "iisSettings": { //set up the iis web server
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:30166",
-      "sslPort": 44365
+      "applicationUrl": "http://localhost:30166", // http port
+      "sslPort": 44365 // https port
     }
   },
-  "profiles": {
+  "profiles": { //configure the behavior of the application for launching and debugging in VS
     "Api": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
+      "dotnetRunMessages": true, // detailed output
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7149;http://localhost:5035",
       "environmentVariables": {

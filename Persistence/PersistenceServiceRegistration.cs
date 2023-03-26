@@ -10,6 +10,7 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        // set up dbcontext to be injected into other parts of the application
         services.AddDbContext<GymXptoDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("GymXptoConnectionString")));
 
@@ -22,6 +23,10 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<ISupersetRepository, SupersetRepository>();
         services.AddScoped<IExerciseSetRepository, ExerciseSetRepository>();
+
+        // AddScoped => for database context instances and for services that are expensive to create
+        // AddTransient => for lightweight services that don't need to be shared across requests
+        // AddSingleton => for services that are expensive to create or that should be shared across the entire application (application configuration settings)
 
         return services;
     }

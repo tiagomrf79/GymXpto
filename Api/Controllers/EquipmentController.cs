@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
-public class EquipmentController : ControllerBase
+[Route("api/[controller]")]
+[ApiController]
+public class EquipmentController : ControllerBase //ControllerBase is more lightweight than Controller
 {
     private readonly IMediator _mediator;
 

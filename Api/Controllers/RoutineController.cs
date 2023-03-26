@@ -20,6 +20,18 @@ public class RoutineController : ControllerBase
         _mediator = mediator;
     }
 
+    // ActionResult types:
+    // Ok => 200 OK
+    // CreateAtActionResult => 201 Created (returns also the newly created resource)
+    // NotFoundResult => 404 Not Found (record doesn't exist)
+    // BadRequestResult => 400 Bad Request (validation failed or unexpected return)
+    // UnauthorizedResult => 401 Unauthorized (authentication failed)
+    // ForbidResult => 403 Forbidden (authorization failed)
+    // NoContentResult => 204 NoContent (no content returned, delete for example)
+    // AcceptedResult => Accepted (accepted for processing but not yet complete)
+    // ConflictResult => Conflict (create resource that already exists, for example)
+    // ActionResult<...>
+
     [HttpPost(Name = "AddRoutine")]
     public async Task<ActionResult<CreateRoutineCommandResponse>> Create([FromBody] CreateRoutineCommand createRoutineCommand)
     {

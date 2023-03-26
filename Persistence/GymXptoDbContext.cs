@@ -7,6 +7,8 @@ namespace Persistence;
 
 public class GymXptoDbContext : DbContext
 {
+    // set up collection of entities that can be queried from the database
+    // EF will generate SQL queries from LINQ to perform CRUD operations on these collections
     public DbSet<Routine> Routines { get; set; }
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<Group> Groups { get; set; }
