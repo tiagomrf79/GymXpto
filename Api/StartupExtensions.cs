@@ -17,7 +17,7 @@ public static class StartupExtensions
         //configure persistence layer services
         builder.Services.AddPersistenceServices(builder.Configuration);
 
-        //adds services and rotuing logic so controllers can handle requests
+        //adds services and routing logic so controllers can handle requests
         builder.Services.AddControllers();
 
         //TODO: change CORS policy to a stricter version
